@@ -175,7 +175,6 @@ function BlogAllCard({ isLoggedIn }) {
           // Compare the dates
           return dateB - dateA; // Latest dates first
         });
-        dispatch(resetState())
         // setRetBlogs(sortedImages);
         console.log(blogBackendIformation)
         //store in the reudx
