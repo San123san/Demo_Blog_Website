@@ -166,7 +166,7 @@ function BlogAllCard({ isLoggedIn }) {
   useEffect(() => {
     const fetchAllBlogs = async () => {
       try {
-        const response = await axios.post('https://demo-blog-website-dwt4.onrender.com/api/v1/upload/allCard');
+        const response = await axios.post('/api/v1/upload/allCard');
         console.log(response.data.data)
         const blogBackendIformation = response.data.data.sort((a, b) => {
           // Convert uploadTime to Date objects
