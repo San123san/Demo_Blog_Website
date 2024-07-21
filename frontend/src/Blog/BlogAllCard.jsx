@@ -21,7 +21,7 @@
 //     // Function to fetch all blogs
 //     const fetchAllBlogs = async () => {
 //       try {
-//         const response = await axios.post('/api/v1/upload/allCard');
+//         const response = await axios.post('https://demo-blog-website-dwt4.onrender.com/api/v1/upload/allCard');
 //         console.log(response)
 //         setretBlogs(response.data.data)
 //         // dispatch(addBlog(response.data.data));
