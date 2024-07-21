@@ -98,7 +98,7 @@ function BlogEditCard({ blog, onClose }) {
 
         try {
             // const response = await axios.post(`/api/v1/upload/cardEdit/${blog._id || blog.id}`, formData, {
-            const response = await axios.post(`/api/v1/upload/cardEdit/${blog._id}`, formData, {
+            const response = await axios.post(`https://demo-blog-website-dwt4.onrender.com/api/v1/upload/cardEdit/${blog._id}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }

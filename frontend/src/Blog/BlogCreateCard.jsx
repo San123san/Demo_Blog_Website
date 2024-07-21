@@ -88,7 +88,7 @@ function BlogCreateCard({ onClose }) {
             
             
     
-            const response = await axios.post('/api/v1/upload/createCard', formData, {
+            const response = await axios.post('https://demo-blog-website-dwt4.onrender.com/api/v1/upload/createCard', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 },

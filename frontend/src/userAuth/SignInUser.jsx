@@ -17,7 +17,7 @@ function SignUpUser({onSuccess, onClose, onCloseSignInopenSignUp}) {
     event.preventDefault(); // Prevent default form submission
     
     try {
-      const response = await axios.post('/api/v1/users/login', { email, password });
+      const response = await axios.post('https://demo-blog-website-dwt4.onrender.com/api/v1/users/login', { email, password });
   
       if (response.status === 200) {
         console.log(response)

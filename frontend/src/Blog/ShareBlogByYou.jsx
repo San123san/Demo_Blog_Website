@@ -25,7 +25,7 @@ function ShareBlogByYou({updateShareBlogNumberDelete}) {
   const handleDelete = async (blogShareId) => {
     console.log(blogShareId)
     // Dispatch action to delete blog
-    const response = await axios.post(`/api/v1/share/shareCardByYouDelete/${blogShareId}`);
+    const response = await axios.post(`https://demo-blog-website-dwt4.onrender.com/api/v1/share/shareCardByYouDelete/${blogShareId}`);
     console.log(response)
     dispatch(updateBlog({ _id: blogShareId, shared: false }));
     updateShareBlogNumberDelete()
@@ -36,7 +36,7 @@ function ShareBlogByYou({updateShareBlogNumberDelete}) {
   useEffect(() => {
     const fetchAllBlogs = async () => {
       try {
-        const response = await axios.post('/api/v1/share/shareCardInformation');
+        const response = await axios.post('https://demo-blog-website-dwt4.onrender.com/api/v1/share/shareCardInformation');
         const sortedShareInformation = response.data.data.sort((a, b) => {
           const dateA = new Date(a.shareTime);
           const dateB = new Date(b.shareTime);
@@ -113,7 +113,7 @@ function ShareBlogByYou({updateShareBlogNumberDelete}) {
     console.log(blog.sharedId)
   
     // Update backend API call
-    axios.post(`/api/v1/share/shareCardOptioEditView/${
+    axios.post(`https://demo-blog-website-dwt4.onrender.com/api/v1/share/shareCardOptioEditView/${
       blog.shareId
       // blog.sharedId
     }`, { option: updatedOption })

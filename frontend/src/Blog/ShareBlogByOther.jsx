@@ -45,7 +45,7 @@ function ShareBlogByOther() {
   const handleBlogUpdate = async (formData, blogId) => {
     try {
       console.log(blogId)
-        const response = await axios.post(`/api/v1/share/shareRecipient`, formData, {
+        const response = await axios.post(`https://demo-blog-website-dwt4.onrender.com/api/v1/share/shareRecipient`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             },
@@ -68,7 +68,7 @@ function ShareBlogByOther() {
   useEffect(() => {
     const fetchAllBlogs = async () => {
       try {
-        const response = await axios.post('/api/v1/share/shareRecipient');
+        const response = await axios.post('https://demo-blog-website-dwt4.onrender.com/api/v1/share/shareRecipient');
         const sortedShareInformation = response.data.data.sort((a, b) => {
           const dateA = new Date(a.shareTime);
           const dateB = new Date(b.shareTime);

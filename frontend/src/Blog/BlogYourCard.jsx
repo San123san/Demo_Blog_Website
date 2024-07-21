@@ -64,7 +64,7 @@ function BlogYourCard({updateShareBlog}) {
     try {
       // console.log("Blog Id for Share", currentBlogId);
 
-      const response = await axios.post(`/api/v1/share/shareCardToOther/${currentBlogId}`, {
+      const response = await axios.post(`https://demo-blog-website-dwt4.onrender.com/api/v1/share/shareCardToOther/${currentBlogId}`, {
         usernameOremail: shareInput,
         option: shareOption
       });
@@ -114,7 +114,7 @@ function BlogYourCard({updateShareBlog}) {
 
   const handleDelete = async (blogId) => {
     // Dispatch action to delete blog
-    const response = await axios.post(`/api/v1/upload/cardDelete/${blogId}`);
+    const response = await axios.post(`https://demo-blog-website-dwt4.onrender.com/api/v1/upload/cardDelete/${blogId}`);
     // console.log(response)
     dispatch(deleteBlog({ _id: blogId }));
   };
@@ -124,7 +124,7 @@ function BlogYourCard({updateShareBlog}) {
   useEffect(() => {
     const fetchAllBlogs = async () => {
       try {
-        const response = await axios.post('/api/v1/upload/yourCard');
+        const response = await axios.post('https://demo-blog-website-dwt4.onrender.com/api/v1/upload/yourCard');
         const sortedImages = response.data.data.sort((a, b) => {
           // Convert uploadTime to Date objects
           const dateA = new Date(a.uploadTime);

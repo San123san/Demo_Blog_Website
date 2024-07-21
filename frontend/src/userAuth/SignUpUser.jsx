@@ -43,7 +43,7 @@ function SignUpUser({onClose, onCloseSignUpopenSignIn}) {
 
     if (username && isValidEmail(email) && password) {
       try {
-        const response = await axios.post('/api/v1/users/register', {
+        const response = await axios.post('https://demo-blog-website-dwt4.onrender.com/api/v1/users/register', {
           username,
           email,
           password

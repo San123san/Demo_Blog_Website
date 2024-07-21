@@ -90,7 +90,7 @@ function ShareBlogEditCard({ blog, onClose, handleBlogUpdate}) {
 
         try {
             // const response = await axios.post(`/api/v1/upload/cardEdit/${blog.cardId._id || blog.cardId.id}`, formData, {
-            const response = await axios.post(`/api/v1/share/shareOtherEditCard/${blog.cardId._id}`, formData, {
+            const response = await axios.post(`https://demo-blog-website-dwt4.onrender.com/api/v1/share/shareOtherEditCard/${blog.cardId._id}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 },

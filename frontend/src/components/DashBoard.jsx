@@ -15,7 +15,7 @@ function DashBoard() {
   const blogs = useSelector(state => state.blog.blogs);
 
   const updateShareBlog = async () => {
-    const response = await axios.post('/api/v1/total/totalCardCount');
+    const response = await axios.post('https://demo-blog-website-dwt4.onrender.com/api/v1/total/totalCardCount');
     setShowTotalNumber(response.data.data)
     // dispatch(setBlogs(showTotalNumber))
     console.log("setShow", showTotalNumber)
@@ -25,7 +25,7 @@ function DashBoard() {
   useEffect(() => {
     const fetchAllBlogs = async () => {
       try {
-        const response = await axios.post('/api/v1/total/totalCardCount');
+        const response = await axios.post('https://demo-blog-website-dwt4.onrender.com/api/v1/total/totalCardCount');
         setShowTotalNumber(response.data.data)
         // dispatch(setBlogs(showTotalNumber))
         console.log("setShow", showTotalNumber)
