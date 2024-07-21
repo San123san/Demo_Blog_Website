@@ -5,7 +5,7 @@ import cookieParser from 'cookie-parser'
 const app = express()
 
 app.use(cors({
-    origin: 'https://demo-blog-website-dwt4.onrender.com',
+    origin: 'https://669ce7d99b863d05044adc98--grand-truffle-3e9d71.netlify.app/',
     credentials: true
 }))
 
