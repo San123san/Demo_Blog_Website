@@ -1,4 +1,4 @@
-// src/authuser/SignIn.jsx
+// frontend/src/authuser/SignIn.jsx
 
 import React, { useState } from 'react';
 import { TextField, Button, Typography, Link, Box, Grid, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@mui/material';

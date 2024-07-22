@@ -1,3 +1,5 @@
+// backend/src/controllers/user.controllers.js
+
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/ApiError.js"
 import { registration } from "../models/registration.models.js"
