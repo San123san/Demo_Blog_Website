@@ -162,7 +162,7 @@ function Navbar() {
   const handleSignOut = async () => {
     try {
       const response = await axios.post('https://demo-blog-website-dwt4.onrender.com/api/v1/users/logout',
-      
+
         null,  // no data payload for POST request
         {
           withCredentials: true  // Send cookies with the request
@@ -170,24 +170,28 @@ function Navbar() {
       console.log(response.data);
       localStorage.setItem('isLoggedIn', 'false');
       setIsLoggedIn(false);
-      navigate('/');
-      dispatch(resetState());
+
+
       setSnackbarMessage('Successfully logged out.');
       setSnackbarSeverity('success');
       setSnackbarOpen(true);
 
       // // Automatically close Snackbar after 5 seconds
-      // setTimeout(() => {
-      //   setSnackbarOpen(false);
-      // }, 5000); // 5000 milliseconds = 5 seconds
+      setTimeout(() => {
+        setSnackbarOpen(false);
+      }, 5000); // 5000 milliseconds = 5 seconds
 
-       // Notify Home.jsx to reset selectedButton to 'all'
-    console.log('Before setting selectedButton to all');
-    localStorage.setItem('selectedButton', 'all');
- console.log('After setting selectedButton to all');
-    // Force component update or refresh
-    window.location.reload();
-   
+      dispatch(resetState());
+      navigate('/');
+
+
+      // Notify Home.jsx to reset selectedButton to 'all'
+      console.log('Before setting selectedButton to all');
+      localStorage.setItem('selectedButton', 'all');
+      console.log('After setting selectedButton to all');
+      // Force component update or refresh
+      window.location.reload();
+
     } catch (error) {
       console.error('Logout error:', error);
       setSnackbarMessage('Error logging out.');

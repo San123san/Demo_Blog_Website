@@ -149,7 +149,22 @@ function BlogYourCard({updateShareBlog}) {
         // dispatch(resetState())
         // console.log(response.data)
       } catch (error) {
-        console.error('Error fetching blogs:', error);
+        // console.error('Error fetching blogs:', error);
+        if (error.response.status === 401) {
+          // Handle unauthorized access
+          localStorage.setItem('isLoggedIn', 'false'); // Update local storage
+          // setIsLoggedIn(false); // Update state if you have a state variable for login status
+          navigate('/'); // Navigate to login page
+          // Notify Home.jsx to reset selectedButton to 'all'
+          localStorage.setItem('selectedButton', 'all');
+          alert("Your session has expired. Please log in again."); // Show alert to user
+          // // Reload the page
+          // window.location.reload();
+          // dispatch(resetState())
+        } else {
+          // Handle other errors
+          console.error('Error fetching blogs:', error);
+        }
       }
     };
 
