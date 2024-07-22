@@ -131,7 +131,7 @@ function Home({ isLoggedIn }) {
         '@media (min-width: 1301px) and (max-width: 1710px)': {
           marginLeft: 15,
         },
-        
+
       }}>
         {/* Conditional rendering based on selectedButton */}
         {selectedButton === 'all' && <BlogAllCard />}
@@ -146,22 +146,48 @@ function Home({ isLoggedIn }) {
         open={createCard}
         onClose={handleClose}
         aria-labelledby="create-blog-modal-title"
-        aria-describedby="create-blog-modal-description"
-      >
+        aria-describedby="create-blog-modal-description">
         <Box sx={{
           position: 'absolute',
           top: '50%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
+          '@media (max-width: 570px)': {
+            margin: 'auto'
+          },
         }}>
           <Paper sx={{ p: 4, overflowY: 'auto', maxHeight: '90vh', borderRadius: '8px' }}>
-            <Typography id="create-blog-modal-title" variant="h6" component="h2" gutterBottom>
+            <Typography id="create-blog-modal-title" variant="h6" component="h2" gutterBottom sx={{
+              '@media (max-width: 570px)': {
+                display: 'flex',
+                justifyContent: 'center'
+              },
+            }}>
               Create Your Blog
             </Typography>
-            <Typography id="create-blog-modal-description" variant="body1" gutterBottom>
+            <Typography id="create-blog-modal-description" variant="body1" gutterBottom sx={{
+              '@media (max-width: 570px)': {
+                display: 'flex',
+                justifyContent: 'center',
+                alignContent: 'center',
+                marginLeft: 18,
+                marginRight: 18
+              },
+            }}>
               Fill out the details to create your blog.
             </Typography>
-            <BlogCreateCard onClose={handleCreateCardClose} />
+            <Box sx={{
+              '@media (max-width: 570px)': {
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                marginLeft: 18,
+                marginRight: 18
+              },
+            }}>
+              <BlogCreateCard onClose={handleCreateCardClose} />
+            </Box>
+
           </Paper>
         </Box>
       </Modal>

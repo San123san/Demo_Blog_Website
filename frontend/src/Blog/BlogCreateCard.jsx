@@ -45,11 +45,11 @@ function BlogCreateCard({ onClose }) {
 
     const handleImageUpload = (event) => {
         const file = event.target.files[0];
-        
-            setSelectedImage(file);
-            setShowImage(URL.createObjectURL(file));
-        
-    };    
+
+        setSelectedImage(file);
+        setShowImage(URL.createObjectURL(file));
+
+    };
 
 
     const handleDescriptionChange = (newEditorState) => {
@@ -130,25 +130,25 @@ function BlogCreateCard({ onClose }) {
         try {
             const descriptionPlainText = description.getCurrentContent().getPlainText('');
             const blogContentPlainText = blogContent.getCurrentContent().getPlainText('');
-    
+
             const formData = new FormData();
             formData.append('description', descriptionPlainText);
             formData.append('topic', topic);
             formData.append('author', author);
             formData.append('blogContent', blogContentPlainText);
             formData.append('category', category);
-    
+
             // Append selectedImage if it exists, otherwise append the default image
-            if(selectedImage == null ){
+            if (selectedImage == null) {
                 const blob = await fetch(user_image).then(res => res.blob());
                 formData.append('cardImage', blob, 'default_image.png');
 
-            }else{
+            } else {
                 formData.append('cardImage', selectedImage);
             }
-            
-            
-    
+
+
+
             const response = await axios.post('https://demo-blog-website-dwt4.onrender.com/api/v1/upload/createCard', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
@@ -158,7 +158,7 @@ function BlogCreateCard({ onClose }) {
 
             const { data } = response;
 
-            if(selectedImage == null){
+            if (selectedImage == null) {
                 dispatch(addBlog({
                     _id: data.data._id, // Use MongoDB _id here by help of this const { data } = response;
                     image: showImage,
@@ -167,34 +167,34 @@ function BlogCreateCard({ onClose }) {
                     category: category,
                     description: descriptionPlainText,
                     blogContent: blogContentPlainText,
-                    newCard:true
+                    newCard: true
                 }));
-            }else{
+            } else {
                 const reader = new FileReader();
-            reader.readAsDataURL(selectedImage);
-            reader.onloadend = () => {
-                const imageDataUrl = reader.result;
-    
-                dispatch(addBlog({
-                    _id: data._id, // Use MongoDB _id here by help of this const { data } = response;
-                    image: imageDataUrl,
-                    topic: topic,
-                    author: author,
-                    category: category,
-                    description: descriptionPlainText,
-                    blogContent: blogContentPlainText,
-                    newCard:true
-                }));
-            };
+                reader.readAsDataURL(selectedImage);
+                reader.onloadend = () => {
+                    const imageDataUrl = reader.result;
+
+                    dispatch(addBlog({
+                        _id: data._id, // Use MongoDB _id here by help of this const { data } = response;
+                        image: imageDataUrl,
+                        topic: topic,
+                        author: author,
+                        category: category,
+                        description: descriptionPlainText,
+                        blogContent: blogContentPlainText,
+                        newCard: true
+                    }));
+                };
             }
-            
-    
+
+
             onClose();
         } catch (error) {
             console.error('Error submitting blog:', error);
         }
     };
-    
+
 
 
 
@@ -216,28 +216,32 @@ function BlogCreateCard({ onClose }) {
             {/* Image Preview */}
             <Box md={6} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
 
-                <img src={showImage} style={{
+                <img src={showImage} sx={{
                     width: '220px',
                     height: '220px',
+                    '@media (max-width: 570px)': {
+                        width: '120px',
+                        height: '120px',
+                    },
                 }} alt="Uploaded" />
             </Box>
 
             {/* Upload Image Button */}
             <Box md={6}>
-                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', }}>
                     <input
                         accept="image/*"
                         id="image-upload"
                         type="file"
                         style={{ display: 'none' }}
-                        onChange={handleImageUpload }
+                        onChange={handleImageUpload}
                     />
                     <label htmlFor="image-upload">
                         <Button
                             variant="contained"
                             component="span"
                             color="primary"
-                            style={{ marginBottom: '20px', width: '100%', maxWidth: '220px' }}
+                            sx={{ marginBottom: '20px', width: '100%', maxWidth: '220px' }}
                         >
                             Upload Image
                         </Button>
@@ -255,7 +259,13 @@ function BlogCreateCard({ onClose }) {
                         placeholder="Enter Topic Here"
                         value={topic}
                         onChange={(e) => setTopic(e.target.value)}
-                        style={{ marginBottom: '20px', width: '100%' }}
+                        sx={{
+                            marginBottom: '20px', width: '100%',
+                            '@media (max-width: 570px)': {
+                                width: '270px',
+                                marginLeft: 3
+                            },
+                        }}
                     />
                 </Grid>
 
@@ -267,13 +277,22 @@ function BlogCreateCard({ onClose }) {
                         placeholder="Enter Author Name"
                         value={author}
                         onChange={(e) => setAuthor(e.target.value)}
-                        style={{ marginBottom: '20px', width: '100%' }}
+                        sx={{ marginBottom: '20px', width: '100%' ,
+                            '@media (max-width: 570px)': {
+                                width: '270px',
+                                marginLeft: 3
+                            },
+                        }}
                     />
                 </Grid>
 
                 {/* Select Category */}
                 <Grid item xs={12} style={{ display: 'flex', justifyContent: 'center' }}>
-                    <Box sx={{ width: 400 }}>
+                    <Box sx={{ width: 400,  
+                    '@media (max-width: 570px)': {
+                            width: '270px',
+                            marginLeft: 3
+                        }, }}>
                         <FormControl fullWidth>
                             <InputLabel id="demo-simple-select-label">Select Category</InputLabel>
                             <Select
@@ -293,7 +312,13 @@ function BlogCreateCard({ onClose }) {
                 </Grid>
 
                 {/* Description Editor */}
-                <Grid item xs={12}>
+                <Grid item xs={12} 
+                sx={{
+                    '@media (max-width: 570px)': {
+                            width: '270px',
+                            marginLeft: 3
+                        },
+                }}>
                     <Typography variant="body2" style={{ marginTop: '8px' }}>
                         Characters Left: {charactersLeft}
                     </Typography>
@@ -311,7 +336,13 @@ function BlogCreateCard({ onClose }) {
                 </Grid>
 
                 {/* Blog Editor */}
-                <Grid item xs={12}>
+                <Grid item xs={12}
+                sx={{
+                    '@media (max-width: 570px)': {
+                        width: '270px',
+                        marginLeft: 3
+                    },
+                }}>
                     <Editor
                         editorState={blogContent}
                         onEditorStateChange={handleBlogChange}
