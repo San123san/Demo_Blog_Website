@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import { CardActionArea, CardActions, IconButton, Box, Grid, useTheme } from '@mui/material';
 import PreviewIcon from '@mui/icons-material/Preview';
 import { useSelector, useDispatch } from 'react-redux';
-import { setTransferDisplay, updateBlog } from '../reduxstore/blogSlice';
+import { setTransferDisplay } from '../reduxstore/blogSlice';
 import { useNavigate } from 'react-router-dom';
 
 function Lifestyle() {
@@ -20,17 +20,13 @@ function Lifestyle() {
 
   // Filter blogs that have shared set to true in Redux
   const filteredBlogs = blogs.filter(blog => blog.category === 'Lifestyle');
-  console.log("Filtered", filteredBlogs)
 
   const handleCardClickPreview = (blog) => {
-    console.log('Clicked blog:', blog);
-    console.log('Clicked blogId:', blog._id);
     dispatch(setTransferDisplay(blog._id));
     navigate(`/User-Card-Show/${blog.topic}`);
   };
 
   const handleCardClick = (blogId) => {
-    console.log('Clicked blog:', blogId);
     dispatch(setTransferDisplay(blogId));
     const selectedBlog = blogs.find(blog => blog._id === blogId);
     navigate(`/User-Card-Show/${selectedBlog.topic}`);
@@ -73,7 +69,6 @@ function Lifestyle() {
               <CardMedia
                 component="img"
                 height="140"
-                // image={blog.image || `data:${blog.cardImage.contentType};base64,${blog.cardImage.data}`}
                 image={blog.cardImage ? `data:${blog.cardImage.contentType};base64,${blog.cardImage.data}` : blog.image}
                 sx={{
                   objectFit: 'contain'

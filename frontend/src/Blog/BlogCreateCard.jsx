@@ -2,7 +2,7 @@
 // src/Blog/BlogCreateCard.jsx
 
 import React, { useState } from 'react'
-import { EditorState, convertToRaw } from 'draft-js'
+import { EditorState } from 'draft-js'
 import { Editor } from 'react-draft-wysiwyg'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import {
@@ -32,7 +32,6 @@ function BlogCreateCard({ onClose }) {
     const maxCharacters = 300;
     const [category, setCategory] = useState('');
     const [author, setAuthor] = useState('')
-    const newCard = false
 
     const handleImageUpload = (event) => {
         const file = event.target.files[0];
@@ -95,8 +94,6 @@ function BlogCreateCard({ onClose }) {
                 withCredentials: true,
             });
 
-            console.log(response)
-
             const { data } = response;
 
             if(selectedImage == null){
@@ -140,7 +137,6 @@ function BlogCreateCard({ onClose }) {
 
 
     const handleCancel = () => {
-        console.log('Form cancelled');
         onClose();
 
 
@@ -283,7 +279,7 @@ function BlogCreateCard({ onClose }) {
                             backgroundColor: 'red',
                             color: '#ffffff',
                             '&:hover': {
-                                backgroundColor: '#8b0000', // Dark red color on hover
+                                backgroundColor: '#8b0000',
                             },
                         }}
                         onClick={handleCancel}

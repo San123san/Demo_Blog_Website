@@ -179,11 +179,7 @@ const cardDelete = asyncHandler(async (req, res) => {
          await shareCard.deleteMany({ cardId: id });
 
         //find the image by its id
-        // const upload = await cardUpload.findById(id);
         const upload = await cardUpload.findOneAndDelete({ _id: id });
-
-        //delete information from the database
-        // await upload.findOneAndDelete();
 
         res.status(200).json(new ApiResponse(200, null, "Delete successfully"))
     } catch (error) {

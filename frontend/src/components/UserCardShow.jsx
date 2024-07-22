@@ -1,7 +1,7 @@
 // src/components/UserCardShow.jsx
 
 import React from 'react'
-import { Typography, Container, Grid, Button, Box, Modal, Paper } from '@mui/material';
+import { Typography, Box } from '@mui/material';
 import { useSelector } from 'react-redux';
 
 function UserCardShow() {

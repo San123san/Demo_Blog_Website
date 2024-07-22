@@ -233,25 +233,7 @@ const shareYourCardDelete = asyncHandler(async (req, res) => {
     }
 })
 
-// const shareToRevieveByRecipient = asyncHandler(async (req, res) => {
 
-//     try {
-//         const recipientId = req.user._id;
-
-//         // Query to find all shareCard entries where recipientId matches req.user.id
-//         const sharedCards = await shareCard.find({ recipientId });
-
-//         // Check if any shared cards were found
-//         if (sharedCards.length === 0) {
-//             throw new ApiError(404, "No shared cards found for this recipient");
-//         }
-
-//         res.status(200).json(new ApiResponse(200, sharedCards, "RecipientRetrieveBlog"))
-
-//     } catch (error) {
-//         throw new ApiError(404, "No Information")
-//     }
-// })
 const shareToRevieveByRecipient = asyncHandler(async (req, res) => {
     try {
         const recipientId = req.user._id;

@@ -1,11 +1,23 @@
 // frontend/src/authuser/SignIn.jsx
 
 import React, { useState } from 'react';
-import { TextField, Button, Typography, Link, Box, Grid, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@mui/material';
+import {
+  TextField,
+  Button,
+  Typography,
+  Box,
+  Grid,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions
+}
+  from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-function SignInUser({onSuccess, onClose, onCloseSignInopenSignUp}) {
+function SignInUser({ onSuccess, onClose, onCloseSignInopenSignUp }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [openSuccessDialog, setOpenSuccessDialog] = useState(false);
@@ -15,53 +27,44 @@ function SignInUser({onSuccess, onClose, onCloseSignInopenSignUp}) {
 
   const handleSubmit = async (event) => {
     event.preventDefault(); // Prevent default form submission
-    
+
     try {
       const response = await axios.post('https://demo-blog-website-dwt4.onrender.com/api/v1/users/login', { email, password }, { withCredentials: true });
-  
+
       if (response.status === 200) {
-        // Assuming your backend responds with tokens in the response data
-      const { accessToken, refreshToken } = response.data.data;
-      console.log("access frontend",accessToken)
-      console.log("refresh frontend",refreshToken)
-      console.log("token both", response.data)
+        const { accessToken, refreshToken } = response.data.data;
 
-      // Store tokens in localStorage or session storage for persistence
-      localStorage.setItem('accessToken', accessToken);
-      localStorage.setItem('refreshToken', refreshToken);
+        localStorage.setItem('accessToken', accessToken);
+        localStorage.setItem('refreshToken', refreshToken);
 
-        console.log(response)
         setOpenSuccessDialog(true);
-        localStorage.setItem('isLoggedIn', 'true'); // Update local storage
+        localStorage.setItem('isLoggedIn', 'true'); 
         onSuccess();
       }
     } catch (error) {
       console.error('Error:', error.response.data);
-  
+
       if (error.response.status === 400 || error.response.status === 404) {
         alert('Check Your Credentials');
       }
     }
   };
-  
+
 
   const handleSignUpClick = () => {
-    // navigate('/SignUp'); // Navigate to SignUp page
     onClose()
     onCloseSignInopenSignUp()
   };
 
   const handleClose = () => {
-    // Handle cancellation logic here
-    // Example: Clear form fields or navigate away
     console.log('Sign In Cancelled');
     onClose();
-};
+  };
 
-const handleCloseSuccessDialog = () => {
-  setOpenSuccessDialog(false);
-  onClose();
-};
+  const handleCloseSuccessDialog = () => {
+    setOpenSuccessDialog(false);
+    onClose();
+  };
 
   return (
     <Grid container justifyContent="center" alignItems="center" style={{ minHeight: '100vh' }}>
@@ -101,7 +104,7 @@ const handleCloseSuccessDialog = () => {
             </Grid>
           </Grid>
 
-          <Box sx={{ mt: 4 , display:'flex', justifyContent: 'center'}}>
+          <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
             <Button
               type="submit"
               variant="contained"

@@ -7,7 +7,6 @@ import { useLocation } from 'react-router-dom';
 function ShareBlogCardShowOther() {
     const location = useLocation();
     const { blog } = location.state;
-    console.log("location", blog)
     return (
         <>
             <Box sx={{

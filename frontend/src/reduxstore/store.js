@@ -9,13 +9,10 @@ const persistedState = localStorage.getItem('reduxState')
   ? JSON.parse(localStorage.getItem('reduxState'))
   : {};
 
-  console.log('Persisted State:', persistedState);
-
 
 const store = configureStore({
   reducer: {
     blog: blogReducer,
-    // Add other reducers as needed
   },
   preloadedState: persistedState,
   middleware: (getDefaultMiddleware) =>

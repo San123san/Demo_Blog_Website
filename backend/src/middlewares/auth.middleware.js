@@ -7,13 +7,8 @@ import { registration } from "../models/registration.models.js";
 
 export const verifyJWT = asyncHandler(async(req, _, next) => {
     try {
-        console.log("Request Headers:", req.headers);
-        console.log('Request Cookies:', req.cookies);
         const token = req.cookies?.accessToken || req.header("Authorization")?.replace("Bearer ", "")
        
-        console.log("Token:", token);
-        
-        // console.log(token);
         if (!token) {
             throw new ApiError(401, "Unauthorized request")
         }
@@ -30,7 +25,6 @@ export const verifyJWT = asyncHandler(async(req, _, next) => {
         req.user = user;
         next()
     } catch (error) {
-        console.error("Error in verifyJWT middleware:", error); 
         throw new ApiError(401, error?.message || "Invalid access token")
     }
     

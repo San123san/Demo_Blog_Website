@@ -15,7 +15,6 @@ function SignUpUser({ onClose, onCloseSignUpopenSignIn }) {
     password: '',
   });
 
-  const navigate = useNavigate();
   const [signupSuccess, setSignupSuccess] = useState(false);
 
   function isValidEmail(email) {
@@ -25,7 +24,6 @@ function SignUpUser({ onClose, onCloseSignUpopenSignIn }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(username, email, password);
 
     let errors = { username: '', email: '', password: '' };
 
@@ -49,19 +47,12 @@ function SignUpUser({ onClose, onCloseSignUpopenSignIn }) {
           password
         },
           { withCredentials: true })
-        console.log(response.data);
-        console.log(response.message)
         setSignupSuccess(true);
       } catch (error) {
-        console.log(error.response);
-        console.log(error.response.status);
         // Parse the HTML response to extract the error message
         const parser = new DOMParser();
         const htmlDocument = parser.parseFromString(error.response.data, 'text/html');
         const errorMessage = htmlDocument.querySelector('pre').textContent.trim();
-
-        // Now, you can use the extracted error message for handling errors
-        console.log(errorMessage);
 
         if (errorMessage.includes("User with username or email already exists") && error.response.status == 409) {
           setErrors({
@@ -92,16 +83,11 @@ function SignUpUser({ onClose, onCloseSignUpopenSignIn }) {
   };
 
   const handleSignInClick = () => {
-    // navigate('/SignIn'); // Navigate to SignIn page
     onClose()
     onCloseSignUpopenSignIn()
-    console.log("hi")
   };
 
   const handleClose = () => {
-    // Handle cancellation logic here
-    // Example: Clear form fields or navigate away
-    console.log('Form cancelled');
     onClose();
 
 

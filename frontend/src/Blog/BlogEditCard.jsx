@@ -5,7 +5,6 @@ import { EditorState, convertToRaw, ContentState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import {
-    Typography,
     Container,
     Grid,
     Button,
@@ -19,7 +18,6 @@ import {
 
 import { useDispatch } from 'react-redux';
 import { updateBlog } from '../reduxstore/blogSlice';
-import NoImage from '../images/NoImage.png';
 import '../Blog/style.css';
 import axios from 'axios';
 
@@ -50,16 +48,6 @@ function BlogEditCard({ blog, onClose }) {
     }, [blog]);
 
     const handleImageUpload = (event) => {
-        // const reader = new FileReader();
-        // const file = event.target.files[0];
-
-        // reader.onloadend = () => {
-        //     setImage(reader.result);
-        // };
-
-        // if (file) {
-        //     reader.readAsDataURL(file);
-        // }
         const file = event.target.files[0];
 
         setSelectedImage(file);
@@ -97,17 +85,14 @@ function BlogEditCard({ blog, onClose }) {
         formData.append('cardImage', selectedImage); // Ensure 'image' is the updated image data
 
         try {
-            // const response = await axios.post(`/api/v1/upload/cardEdit/${blog._id || blog.id}`, formData, {
             const response = await axios.post(`https://demo-blog-website-dwt4.onrender.com/api/v1/upload/cardEdit/${blog._id}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 },
                 withCredentials: true  // Send cookies with the request
             });
-            console.log('Blog updated successfully:', response.data);
         } catch (error) {
             console.error('Error updating blog:', error);
-            // Handle error state or feedback to the user
         }
 
 
@@ -144,17 +129,6 @@ function BlogEditCard({ blog, onClose }) {
                 })
             );
         }
-        // dispatch(
-        //     updateBlog({
-        //         ...blog,
-        //         image,
-        //         topic,
-        //         description: descriptionText, // Store plain text instead of JSON stringified
-        //         blogContent: blogContentText, // Store plain text instead of JSON stringified
-        //         category,
-        //         author
-        //     })
-        // );
 
         onClose();
     };
@@ -162,7 +136,6 @@ function BlogEditCard({ blog, onClose }) {
 
     const handleCancel = () => {
         // Handle cancellation logic here
-        console.log('Form cancelled');
         onClose();
     };
 
@@ -207,35 +180,6 @@ function BlogEditCard({ blog, onClose }) {
 
                     </label>
                 </Grid>
-                {/* <Grid item xs={12}>
-                    <img
-                        src={image}
-                        style={{
-                            width: '220px',
-                            height: '220px',
-                        }}
-                        alt="Uploaded"
-                    />
-                </Grid>
-                <Grid item xs={12}>
-                    <Button
-                        variant="contained"
-                        component="label"
-                        color="primary"
-                        style={{
-                            marginBottom: '20px',
-                            width: '220px',
-                        }}
-                    >
-                        Upload Image
-                        <input
-                            type="file"
-                            accept="image/*"
-                            style={{ display: 'none' }}
-                            onChange={handleImageUpload}
-                        />
-                    </Button>
-                </Grid> */}
 
                 {/* Topic */}
                 <Grid item xs={12}>
@@ -328,7 +272,7 @@ function BlogEditCard({ blog, onClose }) {
                             backgroundColor: 'red',
                             color: '#ffffff',
                             '&:hover': {
-                                backgroundColor: '#8b0000', // Dark red color on hover
+                                backgroundColor: '#8b0000', 
                             },
                         }}
                         onClick={handleCancel}

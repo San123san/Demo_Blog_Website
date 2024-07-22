@@ -10,10 +10,8 @@ import PreviewIcon from '@mui/icons-material/Preview';
 import EditIcon from '@mui/icons-material/Edit';
 import { useSelector, useDispatch } from 'react-redux';
 import ShareBlogEditCard from './ShareBlogEditCard';
-import { setTransferDisplay, updateBlog } from '../reduxstore/blogSlice';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import AllCardShow from '../components/AllCardShow.jsx'
 
 function ShareBlogByOther() {
   const [editCard, setEditeCard] = useState(false);
@@ -21,8 +19,6 @@ function ShareBlogByOther() {
   const [retBlogs, setRetBlogs] = useState([])
   const navigate = useNavigate()
   const theme = useTheme();
-
-  const dispatch = useDispatch();
 
   const handleClose = () => {
     setSelectedShareBlog(null);
@@ -44,26 +40,20 @@ function ShareBlogByOther() {
   // Function to handle blog update
   const handleBlogUpdate = async (formData, blogId) => {
     try {
-      console.log(blogId)
         const response = await axios.post(`https://demo-blog-website-dwt4.onrender.com/api/v1/share/shareRecipient`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             },
-            // Add other necessary parameters
             
             withCredentials: true  // Send cookies with the request
         });
-        console.log('Blog updated successfully:', response.data.data);
 
-        // Update UI immediately without reload
         setRetBlogs(response.data.data);
 
-        // Close modal or reset form if needed
         setSelectedShareBlog(null);
         setEditeCard(false);
     } catch (error) {
         console.error('Error updating blog:', error);
-        // Handle error state or feedback to the user
     }
 };
 
@@ -82,9 +72,6 @@ function ShareBlogByOther() {
           return dateB - dateA; // Latest dates first
         });
         setRetBlogs(sortedShareInformation);
-        console.log("recipient", retBlogs)
-        // dispatch(resetState())
-        console.log("Share response", response.data.data)
       } catch (error) {
         console.error('Error fetching blogs:', error);
       }
@@ -95,45 +82,11 @@ function ShareBlogByOther() {
     []
   );
 
-  // const filterBlog = () => {
-  //   console.log('Redux Blogs:', blogs);
-  //   console.log('Retrieved Blogs Recipient:', retBlogs);
-
-  //   // Iterate through blogs and update shared properties if match found in retBlogs
-  //   blogs.forEach(blog => {
-  //     const matchingRetBlog = retBlogs.find(retBlog => retBlog.cardId === blog._id);
-  //     if (matchingRetBlog) {
-  //       dispatch(updateBlog({
-  //         _id: blog._id, // Ensure to include blog id in the update
-  //         cardViewOrEdit: matchingRetBlog.cardViewOrEdit,
-  //         shareId: matchingRetBlog._id,
-  //         senderId: matchingRetBlog.senderId,
-  //         recipient: true
-  //       }));
-  //     }
-  //     // If no matching retBlog found, do nothing for this blog
-  //   });
-  // };
-
-  // // Call filterBlog when blogs or retBlogs change, or as needed
-  // useEffect(() => {
-  //   filterBlog();
-  // }, [retBlogs]);
-
-  // Filter blogs that have shared set to true in Redux
-  // const filteredBlogs = blogs.filter(blog => blog.recipient === true);
-  // console.log("Filtered", filteredBlogs)
-
   const handleCardClickPreview = (blog) => {
-    console.log('Clicked blog:', blog);
-    console.log('Clicked blogId:', blog._id);
     navigate(`/share-blog-Card-show-other/${blog.cardId.topic}`, { state: { blog } });
   };
 
   const handleCardClick = (blog) => {
-    console.log('Clicked blog:', blog);
-    console.log('Clicked blogId.cardId:', blog.cardId);
-    // navigate(`/share-blog-Card-show-other/${blog.cardId.topic}`);
     navigate(`/share-blog-Card-show-other/${blog.cardId.topic}`, { state: { blog } });
   };
   return (
@@ -159,20 +112,12 @@ function ShareBlogByOther() {
               }}
               onClick={() => handleCardClick(blog)}
             >
-          {/* // filteredBlogs.map((blog, index) => (
-          //   <Card
-          //     key={blog._id}
-          //     sx={{ width: 345, backgroundColor: '#f0f0f0', padding: '20px', margin: '10px', borderRadius: '10px' }}
-          //     onClick={() => handleCardClick(blog._id)}
-          //   > */}
               <CardActionArea sx={{ backgroundColor: '#ffffff' }}>
                 <CardMedia
                   component="img"
                   height="140"
                   image={
-                    // blog.cardId.image || 
                     `data:${blog.cardId.cardImage.contentType};base64,${blog.cardId.cardImage.data}`}
-                  // image={blog.cardImage ? `data:${blog.cardImage.contentType};base64,${blog.cardImage.data}` : blog.image}
                   sx={{
                     objectFit: 'contain'
                   }}
@@ -197,7 +142,6 @@ function ShareBlogByOther() {
                 backgroundColor: theme.palette.mode === 'dark' ? '#333' : '#fff',
                 borderTop: `1px solid ${theme.palette.mode === 'dark' ? 'white' : 'white'}`, 
               }}
-                // disableSpacing
                 onClick={(event) => { event.stopPropagation() }}>
 
                 {/*Preview Button */}
@@ -235,7 +179,6 @@ function ShareBlogByOther() {
                 >
                   <Typography sx={{ color: 'black' }}>You can&nbsp;</Typography>
                   <Typography sx={{ fontWeight: 'bold' }}>{blog.cardViewOrEdit === 'View' ? 'View' : 'Edit'}</Typography>
-                  {/* {blog.sharedViewOrEdit === 'View' ? 'View' : 'Edit'} */}
                 </Box>
               </CardActions>
             </Card>

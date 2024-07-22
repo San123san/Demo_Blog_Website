@@ -16,8 +16,6 @@ import {
   IconButton,
   Drawer,
   List,
-  ListItem,
-  ListItemText,
   ListItemButton,
   Divider,
   Snackbar,
@@ -54,12 +52,9 @@ function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // State to manage user login status
   const [showDashboard, setShowDashboard] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState(() => {
-    // Initialize with stored value or default to an empty string
     return localStorage.getItem('selectedCategory') || '';
   });
-  // const [selectedCategory, setSelectedCategory] = useState('');
   const [currentPage, setCurrentPage] = useState(() => {
-    // Initialize with stored value or default to 'all'
     return localStorage.getItem('currentPage') || 'Home';
   });
 
@@ -68,7 +63,6 @@ function Navbar() {
   }, [currentPage]);
 
   useEffect(() => {
-    // Save selectedCategory to localStorage when it changes
     localStorage.setItem('selectedCategory', selectedCategory);
   }, [selectedCategory]);
 
@@ -85,15 +79,6 @@ function Navbar() {
     }
   }, []);
 
-  // const saveNavigationState = () => {
-  //   localStorage.setItem('navigationState', JSON.stringify({
-  //     currentPage,
-  //     showDashboard,
-  //     selectedCategory,
-  //   }));
-  // };
-
-  // const [currentPage, setCurrentPage] = useState('Home'); // Default to Homev
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
@@ -118,11 +103,8 @@ function Navbar() {
   };
 
   const handleSearch = () => {
-    // Navigate to SearchPage with searchQuery as a parameter
     navigate(`/searchpage/${encodeURIComponent(searchQuery)}`);
-    // Reset searchQuery and selectedCategory if needed
     setSearchQuery('');
-    // setSelectedCategory('');
     handleClose();
   };
 
@@ -136,38 +118,17 @@ function Navbar() {
   };
 
   const userSignIn = () => {
-    // dispatch(resetState())
     setSignInUser(true);
   };
 
-  // const handleSignOut = async () => {
-  //   try {
-  //     const response = await axios.post('/api/v1/users/logout')
-  //     console.log(response.data);
-  //     localStorage.setItem('isLoggedIn', 'false'); // Update local storage
-  //     setIsLoggedIn(false); // Update state
-  //     navigate('/');
-  //     alert("Successfully LogOut");
-  //     dispatch(resetState())
-
-  //     // Notify Home.jsx to reset selectedButton to 'all'
-  //     localStorage.setItem('selectedButton', 'all');
-
-  //   } catch (error) {
-  //     console.log("Logout error:", error)
-  //     console.error("Error", error)
-  //   }
-  //   setIsLoggedIn(false);
-  // };
   const handleSignOut = async () => {
     try {
       const response = await axios.post('https://demo-blog-website-dwt4.onrender.com/api/v1/users/logout',
 
-        null,  // no data payload for POST request
+        null,
         {
-          withCredentials: true  // Send cookies with the request
+          withCredentials: true  
         });
-      console.log(response.data);
       localStorage.setItem('isLoggedIn', 'false');
       setIsLoggedIn(false);
 
@@ -176,32 +137,24 @@ function Navbar() {
       setSnackbarSeverity('success');
       setSnackbarOpen(true);
 
-      // // Automatically close Snackbar after 5 seconds
       setTimeout(() => {
         setSnackbarOpen(false);
-      }, 5000); // 5000 milliseconds = 5 seconds
+      }, 5000); 
 
       dispatch(resetState());
       navigate('/');
 
-
-      // Notify Home.jsx to reset selectedButton to 'all'
-      console.log('Before setting selectedButton to all');
       localStorage.setItem('selectedButton', 'all');
-      console.log('After setting selectedButton to all');
-      // Force component update or refresh
       window.location.reload();
 
     } catch (error) {
-      console.error('Logout error:', error);
       setSnackbarMessage('Error logging out.');
       setSnackbarSeverity('error');
       setSnackbarOpen(true);
 
-      // Automatically close Snackbar after 5 seconds
       setTimeout(() => {
         setSnackbarOpen(false);
-      }, 5000); // 5000 milliseconds = 5 seconds
+      }, 5000); 
     }
   };
 
@@ -217,21 +170,18 @@ function Navbar() {
   }, []);
 
   const handleSignInSignUp = () => {
-    console.log("hi")
     userSignIn()
   }
 
   const handleSignUpSignIn = () => {
-    console.log("hi")
     userSignUp()
   }
 
   const toggleDashboard = () => {
     if (currentPage !== 'Dashboard') {
       setCurrentPage('Dashboard');
-      setShowDashboard(!showDashboard); // Toggle Dashboard
-      setSelectedCategory(''); // Clear selected category
-      // saveNavigationState();
+      setShowDashboard(!showDashboard); 
+      setSelectedCategory(''); 
     }
   };
 
@@ -239,14 +189,12 @@ function Navbar() {
     setCurrentPage('Home');
     setShowDashboard(false);
     setSelectedCategory('');
-    // saveNavigationState();
   };
 
   const handleCategorySelect = (category) => {
     setCurrentPage(category);
-    setShowDashboard(false); // Close Dashboard if open
-    setSelectedCategory(category); // Set selected category
-    // saveNavigationState();
+    setShowDashboard(false); 
+    setSelectedCategory(category); 
     handleClose();
   };
 
@@ -267,7 +215,7 @@ function Navbar() {
   //For logout
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
-  const [snackbarSeverity, setSnackbarSeverity] = useState('success'); // or 'error' for logout failure
+  const [snackbarSeverity, setSnackbarSeverity] = useState('success');
 
 
   return (
@@ -308,23 +256,6 @@ function Navbar() {
                 display: 'none',
               },
             }}
-
-
-          // sx={{
-          //   color: '#ffffff', // Text color
-          //   ml: 5, // Left margin
-          //   borderBottom: currentPage === 'Home' ? '2px solid white' : 'none', // Bottom border
-          //   backgroundColor: currentPage === 'Home' ? 'rgba(255, 255, 255, 0.1)' : 'transparent', // Background color with transparency
-          //   '&:hover': {
-          //     backgroundColor: currentPage === 'Home' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.05)', // Hover background color
-          //   },
-          //   '&:focus': {
-          //     outline: 'none', // Remove focus outline
-          //   },
-          //   fontSize: '1rem', // Font size
-          //   textTransform: 'none', // Disable text transformation
-          //   transition: 'background-color 0.3s ease-in-out' // Smooth transition
-          // }}
           >
             Home
           </Button>
@@ -336,43 +267,6 @@ function Navbar() {
                 className={currentPage === 'Dashboard' ? 'selectedButton' : ''}
                 onClick={toggleDashboard}
                 color="inherit"
-                // sx={{
-                //   color: '#ffffff',
-                //   ml: 5,
-                //   borderBottom: currentPage === 'Dashboard' ? '2px solid black' : 'none',
-                //   backgroundColor: currentPage === 'Dashboard' ? 'rgba(0, 0, 0, 0.1)' : 'transparent',
-                //   '&:hover': {
-                //     backgroundColor: currentPage === 'Dashboard' ? 'rgba(0, 0, 0, 0.1)' : 'transparent',
-                //   },
-                //   '&:focus': {
-                //     outline: 'none',
-                //   },
-                //   fontSize: '1rem',
-                //   textTransform: 'none',
-                //   transition: 'background-color 0.3s ease-in-out', // Smooth transition
-                // }}
-                // sx={{
-                //   color: '#ffffff',
-                //   ml: 5,
-                //   // borderBottom: currentPage === 'Home' ? '2px solid black' : 'none',
-                //   borderBottom: darkMode ? (currentPage === 'Dashboard' ? '2px solid white' : 'none') : 
-                //   (currentPage === 'Dashboard' ? '2px solid black' : 'none'),      
-
-                //   // backgroundColor: currentPage === 'Home' ? 'rgba(0, 0, 0, 0.1)' : 'transparent',
-                //   backgroundColor: darkMode ? (currentPage === 'Dashboard' ? 'rgba(255, 255, 255, 0.1)' : 'none') : 
-                //   (currentPage === 'Dashboard' ? 'rgba(0, 0, 0, 0.1)' : 'transparent'),
-                //   '&:hover': {
-                //     // backgroundColor: currentPage === 'Home' ? 'rgba(0, 0, 0, 0.1)' : 'transparent',
-                //     backgroundColor: darkMode ? (currentPage === 'Dashboard' ? 'rgba(255, 255, 255, 0.1)' : 'none') : 
-                //   (currentPage === 'Dashboard' ? 'rgba(0, 0, 0, 0.1)' : 'none'),
-                //   },
-                //   '&:focus': {
-                //     outline: 'none',
-                //   },
-                //   fontSize: '1rem',
-                //   textTransform: 'none',
-                //   transition: 'background-color 0.3s ease-in-out', // Smooth transition
-                // }}
                 sx={{
                   color: '#ffffff',
                   ml: 5,
@@ -380,7 +274,6 @@ function Navbar() {
                   backgroundColor: currentPage === 'Dashboard' ? (darkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)') : 'transparent',
                   '&:hover': {
                     backgroundColor: darkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)',
-                    // backgroundColor: currentPage === 'Dashboard' ? (darkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)') : 'none',
                   },
                   '&:focus': {
                     outline: 'none',
@@ -405,21 +298,6 @@ function Navbar() {
                 aria-expanded={open ? 'true' : undefined}
                 onClick={handleClick}
                 className={currentPage === selectedCategory ? 'selectedButton' : ''}
-                // sx={{
-                //   color: '#ffffff',
-                //   ml: 5,
-                //   borderBottom: currentPage === selectedCategory ? '2px solid black' : 'none',
-                //   backgroundColor: currentPage === selectedCategory ? 'rgba(0, 0, 0, 0.1)' : 'transparent',
-                //   '&:hover': {
-                //     backgroundColor: currentPage === selectedCategory ? 'rgba(0, 0, 0, 0.1)' : 'transparent',
-                //   },
-                //   '&:focus': {
-                //     outline: 'none',
-                //   },
-                //   fontSize: '1rem',
-                //   textTransform: 'none',
-                //   transition: 'background-color 0.3s ease-in-out', // Smooth transition
-                // }}
                 sx={{
                   color: '#ffffff', // White text color
                   ml: 5, // Left margin of 5 units
@@ -427,7 +305,6 @@ function Navbar() {
                   backgroundColor: currentPage === selectedCategory ? (darkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)') : 'transparent',
                   '&:hover': {
                     backgroundColor: darkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)',
-                    // backgroundColor: currentPage === selectedCategory ? (darkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)') : 'none',
                   },
                   '&:focus': {
                     outline: 'none', // Remove outline on focus
@@ -591,25 +468,6 @@ function Navbar() {
                 />
               </Box>
 
-              {/* <Button
-              onClick={toggleDarkMode}
-                color="inherit"
-                sx={{
-                  color: '#ffffff',
-                  ml: 5,
-                  '&:hover': {
-                    backgroundColor: 'transparent',
-                  },
-                  '&:focus': {
-                    outline: 'none',
-                  },
-                  fontSize: '1rem',
-                  textTransform: 'none',
-
-                }}
-              >
-                Theme
-              </Button> */}
               <IconButton
                 sx={{
                   color: '#ffffff',
@@ -667,21 +525,6 @@ function Navbar() {
                 aria-expanded={open ? 'true' : undefined}
                 onClick={handleClick}
                 className={currentPage === selectedCategory ? 'selectedButton' : ''}
-                // sx={{
-                //   color: '#ffffff',
-                //   ml: 5,
-                //   borderBottom: currentPage === selectedCategory ? '2px solid black' : 'none',
-                //   backgroundColor: currentPage === selectedCategory ? 'rgba(0, 0, 0, 0.1)' : 'transparent',
-                //   '&:hover': {
-                //     backgroundColor: currentPage === selectedCategory ? 'rgba(0, 0, 0, 0.1)' : 'transparent',
-                //   },
-                //   '&:focus': {
-                //     outline: 'none',
-                //   },
-                //   fontSize: '1rem',
-                //   textTransform: 'none',
-                //   transition: 'background-color 0.3s ease-in-out', // Smooth transition
-                // }}
                 sx={{
                   color: '#ffffff', // White text color
                   ml: 5, // Left margin of 5 units
@@ -853,24 +696,6 @@ function Navbar() {
                 />
               </Box>
 
-              {/* <Button
-                color="inherit"
-                sx={{
-                  color: '#ffffff',
-                  ml: 5,
-                  '&:hover': {
-                    backgroundColor: 'transparent',
-                  },
-                  '&:focus': {
-                    outline: 'none',
-                  },
-                  fontSize: '1rem',
-                  textTransform: 'none',
-
-                }}
-              >
-                Theme
-              </Button> */}
               <IconButton
                 sx={{
                   color: '#ffffff',
@@ -885,7 +710,6 @@ function Navbar() {
                   textTransform: 'none',
 
                   '@media (max-width: 550px)': {
-                    // display: 'none',
                     marginLeft: 1,
                     marginRight: 0,
                     paddingRight: 0
@@ -980,7 +804,6 @@ function Navbar() {
               color="inherit"
               className={currentPage === 'Home' ? 'selectedButton' : ''}
               sx={{
-                // borderBottom: currentPage === 'Home' ? (darkMode ? '2px solid white' : '2px solid black') : 'none',
                 backgroundColor: currentPage === 'Home' ? (darkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)') : 'transparent',
                 '&:hover': {
                   backgroundColor: currentPage === 'Home' ? (darkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)') : 'none',
@@ -1007,7 +830,6 @@ function Navbar() {
                   sx={{
                     color: '#ffffff',
                     ml: 5,
-                    // borderBottom: currentPage === 'Dashboard' ? (darkMode ? '2px solid white' : '2px solid black') : 'none',
                     backgroundColor: currentPage === 'Dashboard' ? (darkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)') : 'transparent',
                     '&:hover': {
                       backgroundColor: darkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)',
@@ -1041,7 +863,6 @@ function Navbar() {
                     backgroundColor: currentPage === selectedCategory ? (darkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)') : 'transparent',
                     '&:hover': {
                       backgroundColor: darkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)',
-                      // backgroundColor: currentPage === selectedCategory ? (darkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)') : 'none',
                     },
                     '&:focus': {
                       outline: 'none', // Remove outline on focus
@@ -1052,13 +873,11 @@ function Navbar() {
                   }}
                 >
                   Category
-                  {/* {selectedCategory || 'Category'} */}
                   <ArrowDropDownIcon />
                 </ListItemButton>
                 <Menu
                   id="basic-menu"
                   anchorEl={anchorEl}
-                  // open={Boolean(anchorEl)}
                   onClose={handleClose}
                   anchorOrigin={{
                     vertical: 'bottom',
@@ -1117,7 +936,6 @@ function Navbar() {
                     backgroundColor: currentPage === selectedCategory ? (darkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)') : 'transparent',
                     '&:hover': {
                       backgroundColor: darkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)',
-                      // backgroundColor: currentPage === selectedCategory ? (darkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)') : 'none',
                     },
                     '&:focus': {
                       outline: 'none', // Remove outline on focus
@@ -1138,8 +956,6 @@ function Navbar() {
                     <Menu
                       id="basic-menu"
                       anchorEl={anchorEl}
-                      // open={Boolean(anchorEl)}
-                      // onClose={handleClose}
                       onClose={handleClickMenu}
                       anchorOrigin={{
                         vertical: 'bottom',
@@ -1154,11 +970,6 @@ function Navbar() {
                         'aria-labelledby': 'basic-button',
                       }}
                     >
-                      {/* <MenuItem onClick={handleClose}>Technology</MenuItem>
-                  <MenuItem onClick={handleClose}>Travel</MenuItem>
-                  <MenuItem onClick={handleClose}>Food</MenuItem>
-                  <MenuItem onClick={handleClose}>Lifestyle</MenuItem> */}
-
                       <MenuItem onClick={() => handleCategorySelect('Technology')}>Technology</MenuItem>
                       <MenuItem onClick={() => handleCategorySelect('Travel')}>Travel</MenuItem>
                       <MenuItem onClick={() => handleCategorySelect('Food')}>Food</MenuItem>
@@ -1237,14 +1048,14 @@ function Navbar() {
       {/* //logout snackbar  */}
       <Snackbar
         open={snackbarOpen}
-        autoHideDuration={5000} // 5000 milliseconds = 5 seconds
-        onClose={() => setSnackbarOpen(false)} // Optional close handler
+        autoHideDuration={5000} 
+        onClose={() => setSnackbarOpen(false)} 
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
       >
         <Alert
           onClose={() => setSnackbarOpen(false)}
           severity={snackbarSeverity}
-          sx={{ width: '100%' }} // Adjust styles as needed
+          sx={{ width: '100%' }} 
         >
           {snackbarMessage}
         </Alert>
@@ -1271,9 +1082,6 @@ function Navbar() {
           </Paper>
         </Box>
       </Modal>
-      {/* <Home isLoggedIn={isLoggedIn} /> */}
-      {/* {isLoggedIn && showDashboard ? <DashBoard /> : <Home isLoggedIn={isLoggedIn} />} */}
-      {/* Conditional rendering based on currentPage */}
       {isLoggedIn && currentPage === 'Dashboard' ? (
         <DashBoard isLoggedIn={isLoggedIn} />
       ) : currentPage === 'Home' ? (
@@ -1293,452 +1101,3 @@ function Navbar() {
 }
 
 export default Navbar;
-
-
-
-
-
-// // src/component/Navbar.jsx
-
-// import React, { useState, useEffect } from 'react';
-// import {
-//   AppBar,
-//   Toolbar,
-//   Typography,
-//   Button,
-//   InputBase,
-//   Modal,
-//   Box,
-//   Paper,
-//   Menu,
-//   MenuItem
-// } from '@mui/material';
-// import RssFeedIcon from '@mui/icons-material/RssFeed';
-// import SearchIcon from '@mui/icons-material/Search';
-// import SignIn from '../userAuth/SignInUser';
-// import SignUp from '../userAuth/SignUpUser';
-// import { useNavigate } from 'react-router-dom';
-// import { useDispatch } from 'react-redux';
-// import axios from 'axios';
-// import { resetState } from '../reduxstore/blogSlice';
-// import Home from './Home';
-
-// function Navbar() {
-//   const [anchorEl, setAnchorEl] = useState(null);
-//   const [searchQuery, setSearchQuery] = useState('');
-//   const [signUpUser, setSignUpUser] = useState(false);
-//   const [signInUser, setSignInUser] = useState(false);
-//   const [isLoggedIn, setIsLoggedIn] = useState(false); // State to manage user login status
-//   const navigate = useNavigate();
-
-//   const dispatch = useDispatch();
-
-//   const open = Boolean(anchorEl);
-
-//   const handleClick = (event) => {
-//     setAnchorEl(event.currentTarget);
-//   };
-
-//   const handleClose = () => {
-//     setAnchorEl(null);
-//   };
-
-//   const handleSearch = () => {
-//     // Implement search functionality here
-//     console.log('Searching for:', searchQuery);
-//   };
-
-//   const handleSearchInputChange = (event) => {
-//     setSearchQuery(event.target.value);
-//   };
-
-//   const userSignUp = () => {
-//     dispatch(resetState())
-//     setSignUpUser(true);
-//   };
-
-//   const userSignIn = () => {
-//     // dispatch(resetState())
-//     setSignInUser(true);
-//   };
-
-//   const handleSignOut = async () => {
-//     try {
-//       const response = await axios.post('/api/v1/users/logout')
-//       console.log(response.data);
-//       localStorage.setItem('isLoggedIn', 'false'); // Update local storage
-//       setIsLoggedIn(false); // Update state
-//       navigate('/');
-//       alert("Successfully LogOut");
-
-//     } catch (error) {
-//       console.log("Logout error:", error)
-//       console.error("Error", error)
-//     }
-//     setIsLoggedIn(false);
-//   };
-
-//   const handleSign = () => {
-//     setSignUpUser(false);
-//     setSignInUser(false);
-//   };
-
-//   useEffect(() => {
-//     const loggedIn = localStorage.getItem('isLoggedIn');
-//     setIsLoggedIn(loggedIn === 'true'); // Convert string to boolean
-//   }, []);
-
-//   const handleSignInSignUp = () =>{
-//     console.log("hi")
-//     userSignIn()
-//   }
-
-//   const handleSignUpSignIn = () =>{
-//     console.log("hi")
-//     userSignUp()
-//   }
-
-
-//   return (
-//     <>
-//       <AppBar style={{ padding: '0 20px' }}>
-//         <Toolbar sx={{ display: { md: 'flex' } }}>
-//           <RssFeedIcon />
-//           <Typography variant="h5">Blog</Typography>
-
-//           <Button
-//             color="inherit"
-//             sx={{
-//               color: '#ffffff',
-//               ml: 5,
-//               '&:hover': {
-//                 backgroundColor: 'transparent',
-//               },
-//               '&:focus': {
-//                 outline: 'none',
-//               },
-//               fontSize: '1rem',
-//               textTransform: 'none',
-//             }}
-//           >
-//             Home
-//           </Button>
-
-//           {/* Conditional rendering based on login status */}
-//           {isLoggedIn ? (
-//             <>
-//               <Button
-//                 color="inherit"
-//                 sx={{
-//                   color: '#ffffff',
-//                   ml: 5,
-//                   '&:hover': {
-//                     backgroundColor: 'transparent',
-//                   },
-//                   '&:focus': {
-//                     outline: 'none',
-//                   },
-//                   fontSize: '1rem',
-//                   textTransform: 'none',
-//                 }}
-//               >
-//                 Dashboard
-//               </Button>
-
-//               <Button
-//                 id="basic-button"
-//                 aria-controls={open ? 'basic-menu' : undefined}
-//                 aria-haspopup="true"
-//                 aria-expanded={open ? 'true' : undefined}
-//                 onClick={handleClick}
-//                 sx={{
-//                   color: '#ffffff',
-//                   ml: 5,
-//                   '&:hover': {
-//                     backgroundColor: 'transparent',
-//                   },
-//                   '&:focus': {
-//                     outline: 'none',
-//                   },
-//                   fontSize: '1rem',
-//                   textTransform: 'none',
-
-//                 }}
-//               >
-//                 Category
-//               </Button>
-//               <Menu
-//                 id="basic-menu"
-//                 anchorEl={anchorEl}
-//                 open={open}
-//                 onClose={handleClose}
-//                 MenuListProps={{
-//                   'aria-labelledby': 'basic-button',
-//                 }}
-//               >
-//                 <MenuItem onClick={handleClose}>Technology</MenuItem>
-//                 <MenuItem onClick={handleClose}>Travel</MenuItem>
-//                 <MenuItem onClick={handleClose}>Food</MenuItem>
-//                 <MenuItem onClick={handleClose}>Lifestyle</MenuItem>
-//               </Menu>
-
-//               {/* Search Bar */}
-//               <div style={{
-//                 marginLeft: 'auto',
-//                 backgroundColor: '#ffffff',
-//                 borderRadius: '5px',
-//                 display: 'flex',
-//                 paddingTop: '10px',
-//                 paddingLeft: '5px',
-//                 placeContent: 'center'
-//               }}>
-//                 <div style={{ left: 10, alignItems: 'center', placeItems: 'center', placeContent: 'center' }}>
-//                   <SearchIcon sx={{ color: 'gray' }} />
-//                 </div>
-//                 <InputBase
-//                   placeholder="Search…"
-//                   inputProps={{ 'aria-label': 'search' }}
-//                   value={searchQuery}
-//                   onChange={handleSearchInputChange}
-//                   onKeyDown={(e) => {
-//                     if (e.key === 'Enter') {
-//                       handleSearch();
-//                     }
-//                   }}
-//                   sx={{
-//                     ml: 1,
-//                     color: 'inherit',
-//                     paddingBottom: '5px',
-//                     '& .MuiInputBase-input': {
-//                       pr: '1rem',
-//                       color: '#000000',
-//                       fontSize: 18
-//                     },
-//                   }}
-//                 />
-//               </div>
-
-//               <Button
-//                 color="inherit"
-//                 sx={{
-//                   color: '#ffffff',
-//                   ml: 5,
-//                   '&:hover': {
-//                     backgroundColor: 'transparent',
-//                   },
-//                   '&:focus': {
-//                     outline: 'none',
-//                   },
-//                   fontSize: '1rem',
-//                   textTransform: 'none',
-
-//                 }}
-//               >
-//                 Theme
-//               </Button>
-
-
-//               <Button
-//                 color="inherit"
-//                 onClick={handleSignOut}
-//                 sx={{
-//                   color: '#ffffff',
-//                   ml: 5,
-//                   '&:hover': {
-//                     backgroundColor: 'transparent',
-//                   },
-//                   '&:focus': {
-//                     outline: 'none',
-//                   },
-//                   fontSize: '1rem',
-//                   textTransform: 'none',
-//                 }}
-//               >
-//                 Sign Out
-//               </Button>
-//             </>
-//           ) : (
-//             <>
-
-//               <Button
-//                 id="basic-button"
-//                 aria-controls={open ? 'basic-menu' : undefined}
-//                 aria-haspopup="true"
-//                 aria-expanded={open ? 'true' : undefined}
-//                 onClick={handleClick}
-//                 sx={{
-//                   color: '#ffffff',
-//                   ml: 5,
-//                   '&:hover': {
-//                     backgroundColor: 'transparent',
-//                   },
-//                   '&:focus': {
-//                     outline: 'none',
-//                   },
-//                   fontSize: '1rem',
-//                   textTransform: 'none',
-
-//                 }}
-//               >
-//                 Category
-//               </Button>
-//               <Menu
-//                 id="basic-menu"
-//                 anchorEl={anchorEl}
-//                 open={open}
-//                 onClose={handleClose}
-//                 MenuListProps={{
-//                   'aria-labelledby': 'basic-button',
-//                 }}
-//               >
-//                 <MenuItem onClick={handleClose}>Technology</MenuItem>
-//                 <MenuItem onClick={handleClose}>Travel</MenuItem>
-//                 <MenuItem onClick={handleClose}>Food</MenuItem>
-//                 <MenuItem onClick={handleClose}>Lifestyle</MenuItem>
-//               </Menu>
-
-//               {/* Search Bar */}
-//               <div style={{
-//                 marginLeft: 'auto',
-//                 backgroundColor: '#ffffff',
-//                 borderRadius: '5px',
-//                 display: 'flex',
-//                 paddingTop: '10px',
-//                 paddingLeft: '5px',
-//                 placeContent: 'center'
-//               }}>
-//                 <div style={{ left: 10, alignItems: 'center', placeItems: 'center', placeContent: 'center' }}>
-//                   <SearchIcon sx={{ color: 'gray' }} />
-//                 </div>
-//                 <InputBase
-//                   placeholder="Search…"
-//                   inputProps={{ 'aria-label': 'search' }}
-//                   value={searchQuery}
-//                   onChange={handleSearchInputChange}
-//                   onKeyDown={(e) => {
-//                     if (e.key === 'Enter') {
-//                       handleSearch();
-//                     }
-//                   }}
-//                   sx={{
-//                     ml: 1,
-//                     color: 'inherit',
-//                     paddingBottom: '5px',
-//                     '& .MuiInputBase-input': {
-//                       pr: '1rem',
-//                       color: '#000000',
-//                       fontSize: 18
-//                     },
-//                   }}
-//                 />
-//               </div>
-
-//               <Button
-//                 color="inherit"
-//                 sx={{
-//                   color: '#ffffff',
-//                   ml: 5,
-//                   '&:hover': {
-//                     backgroundColor: 'transparent',
-//                   },
-//                   '&:focus': {
-//                     outline: 'none',
-//                   },
-//                   fontSize: '1rem',
-//                   textTransform: 'none',
-
-//                 }}
-//               >
-//                 Theme
-//               </Button>
-
-
-//               <Button
-//                 color="inherit"
-//                 onClick={userSignUp}
-//                 sx={{
-//                   color: '#ffffff',
-//                   ml: 5,
-//                   '&:hover': {
-//                     backgroundColor: 'transparent',
-//                   },
-//                   '&:focus': {
-//                     outline: 'none',
-//                   },
-//                   fontSize: '1rem',
-//                   textTransform: 'none',
-//                 }}
-
-//               >
-//                 Sign Up
-//               </Button>
-
-//               <Button
-//                 color="inherit"
-//                 onClick={userSignIn}
-//                 sx={{
-//                   color: '#ffffff',
-//                   ml: 5,
-//                   '&:hover': {
-//                     backgroundColor: 'transparent',
-//                   },
-//                   '&:focus': {
-//                     outline: 'none',
-//                   },
-//                   fontSize: '1rem',
-//                   textTransform: 'none',
-//                 }}
-//               >
-//                 Sign In
-//               </Button>
-//             </>
-//           )}
-//         </Toolbar>
-//       </AppBar>
-
-//       {/* Modal for SignUp */}
-//       <Modal
-//         open={signUpUser}
-//         onClose={handleClose}
-//       >
-//         <Box sx={{
-//           outline: 'none',
-//           display: 'flex',
-//           alignItems: 'center',
-//           justifyContent: 'center',
-//         }}>
-//           <Paper sx={{ p: 4, maxHeight: '90vh', borderRadius: '8px', width: '70rem' }}>
-//             <SignUp
-//               onClose={handleSign}
-//               onCloseSignUpopenSignIn={handleSignInSignUp}
-//             />
-//           </Paper>
-//         </Box>
-//       </Modal>
-
-//       {/* Modal for SignIn */}
-//       <Modal
-//         open={signInUser}
-//         onClose={handleClose}
-//       >
-//         <Box sx={{
-//           outline: 'none',
-//           display: 'flex',
-//           alignItems: 'center',
-//           justifyContent: 'center',
-//         }}>
-//           <Paper sx={{ p: 4, maxHeight: '90vh', borderRadius: '8px', width: '70rem' }}>
-//             <SignIn
-//               onSuccess={() => setIsLoggedIn(true)}
-//               onClose={handleSign}
-//               onCloseSignInopenSignUp={handleSignUpSignIn}
-//             />
-//           </Paper>
-//         </Box>
-//       </Modal>
-//       <Home isLoggedIn={isLoggedIn} />
-//     </>
-//   );
-// }
-
-// export default Navbar;

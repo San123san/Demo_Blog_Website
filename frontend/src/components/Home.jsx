@@ -7,9 +7,7 @@ import BlogAllCard from '../Blog/BlogAllCard';
 import BlogYourCard from '../Blog/BlogYourCard';
 
 function Home({ isLoggedIn }) {
-  // const [selectedButton, setSelectedButton] = useState('all');
   const [selectedButton, setSelectedButton] = useState(() => {
-    // Initialize with stored value or default to 'all'
     return localStorage.getItem('selectedButton') || 'all';
   });
   const [createCard, setCreateCard] = useState(false);

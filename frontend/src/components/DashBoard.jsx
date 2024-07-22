@@ -6,7 +6,6 @@ import ShareBlogByYou from '../Blog/ShareBlogByYou'
 import ShareBlogByOther from '../Blog/ShareBlogByOther'
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
-import { setBlogs } from '../reduxstore/blogSlice'
 
 function DashBoard() {
   const [showTotalNumber, setShowTotalNumber] = useState('')
@@ -16,47 +15,24 @@ function DashBoard() {
 
   const updateShareBlog = async () => {
     const response = await axios.post('https://demo-blog-website-dwt4.onrender.com/api/v1/total/totalCardCount',
-      
       null,  // no data payload for POST request
       {
         withCredentials: true  // Send cookies with the request
       });
     setShowTotalNumber(response.data.data)
-    // dispatch(setBlogs(showTotalNumber))
-    console.log("setShow", showTotalNumber)
-    console.log(response.data.data)
   }
 
   useEffect(() => {
     const fetchAllBlogs = async () => {
       try {
         const response = await axios.post('https://demo-blog-website-dwt4.onrender.com/api/v1/total/totalCardCount',
-      
-          null,  // no data payload for POST request
+          null,  
           {
-            withCredentials: true  // Send cookies with the request
+            withCredentials: true  
           });
         setShowTotalNumber(response.data.data)
-        // dispatch(setBlogs(showTotalNumber))
-        console.log("setShow", showTotalNumber)
-        console.log(response.data.data)
       } catch (error) {
-        if (error.response.status === 401) {
-          // Handle unauthorized access
-          localStorage.setItem('isLoggedIn', 'false'); // Update local storage
-          // setIsLoggedIn(false); // Update state if you have a state variable for login status
-           // Navigate to login page
-          // Notify Home.jsx to reset selectedButton to 'all'
-          localStorage.setItem('selectedButton', 'all');
-          alert("Your session has expired. Please log in again."); // Show alert to user
-          navigate('/');
-          // // Reload the page
-          // window.location.reload();
-          // dispatch(resetState())
-        } else {
           console.error('Error fetching blogs:', error);
-        }
-
       }
     };
 
