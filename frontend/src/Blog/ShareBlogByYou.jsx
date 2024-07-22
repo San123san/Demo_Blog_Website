@@ -13,7 +13,7 @@ import { setTransferDisplay, updateBlog } from '../reduxstore/blogSlice';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-function ShareBlogByYou({updateShareBlogNumberDelete}) {
+function ShareBlogByYou({ updateShareBlogNumberDelete }) {
 
   const [retBlogs, setRetBlogs] = useState([])
   const navigate = useNavigate()
@@ -25,10 +25,10 @@ function ShareBlogByYou({updateShareBlogNumberDelete}) {
   const handleDelete = async (blogShareId) => {
     // Dispatch action to delete blog
     const response = await axios.post(`https://demo-blog-website-dwt4.onrender.com/api/v1/share/shareCardByYouDelete/${blogShareId}`,
-      
-      null,  
+
+      null,
       {
-        withCredentials: true  
+        withCredentials: true
       });
     dispatch(updateBlog({ _id: blogShareId, shared: false }));
     updateShareBlogNumberDelete()
@@ -40,10 +40,10 @@ function ShareBlogByYou({updateShareBlogNumberDelete}) {
     const fetchAllBlogs = async () => {
       try {
         const response = await axios.post('https://demo-blog-website-dwt4.onrender.com/api/v1/share/shareCardInformation',
-      
-          null,  
+
+          null,
           {
-            withCredentials: true  
+            withCredentials: true
           });
         const sortedShareInformation = response.data.data.sort((a, b) => {
           const dateA = new Date(a.shareTime);
@@ -98,22 +98,21 @@ function ShareBlogByYou({updateShareBlogNumberDelete}) {
 
   //navigate to view or edit
   const handleCardViewOrEdit = (blog) => {
-  
+
     const updatedOption = blog.sharedViewOrEdit === 'View' ? 'Edit' : 'View';
-  
+
     dispatch(updateBlog({
       _id: blog._id,
       sharedViewOrEdit: updatedOption,
       shared: true
     }));
-  
+
     // Update backend API call
-    axios.post(`https://demo-blog-website-dwt4.onrender.com/api/v1/share/shareCardOptioEditView/${
-      blog.shareId
-    }`, { option: updatedOption },
-    {
-      withCredentials: true, 
-  })
+    axios.post(`https://demo-blog-website-dwt4.onrender.com/api/v1/share/shareCardOptioEditView/${blog.shareId
+      }`, { option: updatedOption },
+      {
+        withCredentials: true,
+      })
       .then(response => {
         console.log('Option updated successfully:');
       })
@@ -121,96 +120,102 @@ function ShareBlogByYou({updateShareBlogNumberDelete}) {
         console.error('Error updating option:', error);
       });
   };
-  
+
 
   return (
     <>
       <Box>
-      <Grid container spacing={2}>
-        {filteredBlogs.length === 0 ? (
-          <Typography variant="h6" sx={{ textAlign: 'center', mt: 3, mb: 5, color: '#757575', fontStyle: 'italic' }}>
-          No blogs shared by you.
-        </Typography>
-        ) : (
-          filteredBlogs.map((blog) => (
-            <Grid item key={blog._id} xs={12} sm={6} md={4}>
-            <Card
-              sx={{ 
-                backgroundColor: '#f0f0f0', 
-                padding: '20px', 
-                margin: '10px', 
-                borderRadius: '10px' ,
-                '@media (min-width: 1290px)':{
-                  width: 345
-                }
-              }}
-              onClick={() => handleCardClick(blog._id)}
-            >
-            <CardActionArea sx={{ backgroundColor: '#ffffff' }}>
-              <CardMedia
-                component="img"
-                height="140"
-                image={blog.cardImage ? `data:${blog.cardImage.contentType};base64,${blog.cardImage.data}` : blog.image}
-                sx={{
-                  objectFit: 'contain'
-                }}
-              />
-              <CardContent sx={{ backgroundColor: theme.palette.mode === 'dark' ? '#333' : '#fff' }}>
-                <Typography gutterBottom variant="h5" component="div">
-                  {blog.topic}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {blog.description}
-                </Typography>
-                <Typography variant="body2" color="text.secondary"
+        <Grid container spacing={2}>
+          {filteredBlogs.length === 0 ? (
+            <Typography variant="h6" sx={{ textAlign: 'center', mt: 3, mb: 5, color: '#757575', fontStyle: 'italic' }}>
+              No blogs shared by you.
+            </Typography>
+          ) : (
+            filteredBlogs.map((blog) => (
+              <Grid item key={blog._id} xs={12} sm={6} md={4}>
+                <Card
                   sx={{
-                    marginTop: 1
-                  }}>
-                  {blog.category}
-                </Typography>
-              </CardContent>
-            </CardActionArea>
-            <CardActions
-               sx={{
-                backgroundColor: theme.palette.mode === 'dark' ? '#333' : '#fff',
-                borderTop: `1px solid ${theme.palette.mode === 'dark' ? 'white' : 'white'}`, 
-              }}
-              disableSpacing
-              onClick={(event) => {event.stopPropagation()}}>
+                    backgroundColor: '#f0f0f0',
+                    padding: '20px',
+                    margin: '10px',
+                    borderRadius: '10px',
+                    '@media (min-width: 1290px)': {
+                      width: 345
+                    }
+                  }}
+                  onClick={() => handleCardClick(blog._id)}
+                >
+                  <CardActionArea sx={{ backgroundColor: '#ffffff' }}>
+                    <CardMedia
+                      component="img"
+                      height="140"
+                      image={blog.cardImage ? `data:${blog.cardImage.contentType};base64,${blog.cardImage.data}` : blog.image}
+                      sx={{
+                        objectFit: 'contain'
+                      }}
+                    />
+                    <CardContent sx={{ backgroundColor: theme.palette.mode === 'dark' ? '#333' : '#fff' }}>
+                      <Typography gutterBottom variant="h5" component="div" sx={{
+                        display: 'flex',
+                        justifyContent: 'center'
+                      }}>
+                        {blog.topic}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary" sx={{
+                        display: 'flex',
+                        textAlign: 'center'
+                      }}>
+                        {blog.description}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary"
+                        sx={{
+                          marginTop: 1
+                        }}>
+                        {blog.category}
+                      </Typography>
+                    </CardContent>
+                  </CardActionArea>
+                  <CardActions
+                    sx={{
+                      backgroundColor: theme.palette.mode === 'dark' ? '#333' : '#fff',
+                      borderTop: `1px solid ${theme.palette.mode === 'dark' ? 'white' : 'white'}`,
+                    }}
+                    disableSpacing
+                    onClick={(event) => { event.stopPropagation() }}>
 
-              {/*Preview Button */}
-              <IconButton aria-label="preview"
-                onClick={(event) => {
-                  event.stopPropagation()
-                  handleCardClickPreview(blog)
-                }}>
-                <PreviewIcon />
-              </IconButton>
+                    {/*Preview Button */}
+                    <IconButton aria-label="preview"
+                      onClick={(event) => {
+                        event.stopPropagation()
+                        handleCardClickPreview(blog)
+                      }}>
+                      <PreviewIcon />
+                    </IconButton>
 
-              {/* Delete Button */}
-              <IconButton aria-label="delete"
-                onClick={(event) => {
-                  event.stopPropagation()
-                  handleDelete(blog._id);
-                }}>
-                <DeleteIcon />
-              </IconButton>
+                    {/* Delete Button */}
+                    <IconButton aria-label="delete"
+                      onClick={(event) => {
+                        event.stopPropagation()
+                        handleDelete(blog._id);
+                      }}>
+                      <DeleteIcon />
+                    </IconButton>
 
-              {/* Share ViewOrEdit */}
-              <Typography
-                onClick={(event) => { event.stopPropagation(); handleCardViewOrEdit(blog); }}
-                style={{
-                  cursor: 'pointer',
-                  color: blog.sharedViewOrEdit === 'View' ? 'blue' : 'green',
-                  fontWeight: 'bold'
-                }}
-              >
-                {blog.sharedViewOrEdit === 'View' ? 'View' : 'Edit'}
-              </Typography>
-            </CardActions>
-          </Card>
-          </Grid>
-        )))}
+                    {/* Share ViewOrEdit */}
+                    <Typography
+                      onClick={(event) => { event.stopPropagation(); handleCardViewOrEdit(blog); }}
+                      style={{
+                        cursor: 'pointer',
+                        color: blog.sharedViewOrEdit === 'View' ? 'blue' : 'green',
+                        fontWeight: 'bold'
+                      }}
+                    >
+                      {blog.sharedViewOrEdit === 'View' ? 'View' : 'Edit'}
+                    </Typography>
+                  </CardActions>
+                </Card>
+              </Grid>
+            )))}
         </Grid>
       </Box>
     </>
