@@ -5,8 +5,8 @@ import { registration } from "../models/registration.models.js";
 
 export const verifyJWT = asyncHandler(async(req, _, next) => {
     try {
-        // const token = req.cookies?.accessToken || req.header("Authorization")?.replace("Bearer ", "")
-        const token = req.headers["authorization"]
+        const token = req.cookies?.accessToken || req.header("Authorization")?.replace("Bearer ", "")
+        // const token = req.headers["authorization"]
         console.log("Token:", token);
         
         // console.log(token);
