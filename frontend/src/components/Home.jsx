@@ -127,6 +127,11 @@ function Home({ isLoggedIn }) {
           marginLeft: 5,
           marginRight: 5,
         },
+
+        '@media (min-width: 1301px) and (max-width: 1710px)': {
+          marginLeft: 15,
+        },
+        
       }}>
         {/* Conditional rendering based on selectedButton */}
         {selectedButton === 'all' && <BlogAllCard />}

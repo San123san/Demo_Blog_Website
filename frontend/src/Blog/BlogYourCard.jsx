@@ -229,10 +229,16 @@ function BlogYourCard({updateShareBlog}) {
                   }}
                 />
                 <CardContent sx={{ backgroundColor: theme.palette.mode === 'dark' ? '#333' : '#fff' }}>
-                  <Typography gutterBottom variant="h5" component="div">
+                  <Typography gutterBottom variant="h5" component="div" sx={{
+                        display: 'flex',
+                        justifyContent: 'center'
+                      }}>
                     {blog.topic}
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography variant="body2" color="text.secondary" sx={{
+                        display: 'flex',
+                        textAlign: 'center'
+                      }}>
                     {blog.description}
                   </Typography>
                   <Typography variant="body2" color="text.secondary"

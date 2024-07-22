@@ -62,7 +62,8 @@ function BlogAllCard() {
           </Typography>
         ) : (
           combinedBlogs.map((blog) => (
-            <Grid item key={blog._id} xs={12} sm={6} md={4}>
+            <Grid item key={blog._id} xs={12} sm={6} md={4}
+            >
               <Card
                 sx={{
                   backgroundColor: '#f0f0f0',
@@ -71,7 +72,7 @@ function BlogAllCard() {
                   borderRadius: '10px',
                   '@media (min-width: 1290px)': {
                     width: 345
-                  }
+                  },
                 }}
                 onClick={() => handleCardClick(blog._id)}
               >
@@ -85,10 +86,17 @@ function BlogAllCard() {
                   <CardContent sx={{ backgroundColor: theme.palette.mode === 'dark' ? '#333' : '#fff' }}>
                     <Typography gutterBottom variant="h5" component="div"
                       color="text.secondary"
+                      sx={{
+                        display: 'flex',
+                        justifyContent: 'center'
+                      }}
                     >
                       {blog.topic}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography variant="body2" color="text.secondary" sx={{
+                        display: 'flex',
+                        textAlign: 'center'
+                    }}>
                       {blog.description}
                     </Typography>
                     <Typography variant="body2" color="text.secondary" sx={{ marginTop: 1 }}>

@@ -35,7 +35,22 @@ function Technology() {
   return (
     <>
       <Box sx={{
-        mt: 5
+        mt: 5,
+        '@media (min-width: 1300px)': {
+          marginLeft: 15,
+          marginRight: 15,
+          marginTop: 10
+        },
+
+        '@media (max-width: 1300px)': {
+          marginLeft: 5,
+          marginRight: 5,
+          marginTop: 10
+        },
+
+        '@media (min-width: 1301px) and (max-width: 1710px)': {
+          marginLeft: 15,
+        },
       }}>
       <Grid container spacing={2}>
         {filteredBlogs.length === 0 ? (
@@ -75,10 +90,16 @@ function Technology() {
                 }}
               />
               <CardContent sx={{ backgroundColor: theme.palette.mode === 'dark' ? '#333' : '#fff' }}>
-                <Typography gutterBottom variant="h5" component="div">
+                <Typography gutterBottom variant="h5" component="div" sx={{
+                        display: 'flex',
+                        justifyContent: 'center'
+                      }}>
                   {blog.topic}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2" color="text.secondary" sx={{
+                        display: 'flex',
+                        textAlign: 'center'
+                      }}>
                   {blog.description}
                 </Typography>
                 <Typography variant="body2" color="text.secondary"

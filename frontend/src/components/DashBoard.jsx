@@ -43,7 +43,8 @@ function DashBoard() {
     <>
       <Box
         sx={{
-          margin: 5
+          margin: 5,
+          marginTop: 10
         }}>
         {/* //Total Numbers */}
         <Container>
