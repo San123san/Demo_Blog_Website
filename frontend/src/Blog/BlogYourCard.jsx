@@ -125,7 +125,9 @@ function BlogYourCard({updateShareBlog}) {
   useEffect(() => {
     const fetchAllBlogs = async () => {
       try {
-        const response = await axios.post('https://demo-blog-website-dwt4.onrender.com/api/v1/upload/yourCard');
+        const response = await axios.post('https://demo-blog-website-dwt4.onrender.com/api/v1/upload/yourCard', data, {
+          withCredentials: true // Include cookies
+        });
         const sortedImages = response.data.data.sort((a, b) => {
           // Convert uploadTime to Date objects
           const dateA = new Date(a.uploadTime);
