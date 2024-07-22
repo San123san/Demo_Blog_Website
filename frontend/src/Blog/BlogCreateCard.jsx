@@ -15,7 +15,8 @@ import {
     MenuItem,
     FormControl,
     InputLabel,
-    Select
+    Select,
+    Snackbar
 } from '@mui/material'
 import { useDispatch } from 'react-redux'
 import { addBlog } from '../reduxstore/blogSlice'
@@ -32,6 +33,15 @@ function BlogCreateCard({ onClose }) {
     const maxCharacters = 300;
     const [category, setCategory] = useState('');
     const [author, setAuthor] = useState('')
+    const [errors, setErrors] = useState({
+        topic: '',
+        description: '',
+        blogContent: '',
+        author: '',
+        category: ''
+    });
+    const [snackbarOpen, setSnackbarOpen] = useState(false);
+    const [snackbarMessage, setSnackbarMessage] = useState('');
 
     const handleImageUpload = (event) => {
         const file = event.target.files[0];
@@ -49,7 +59,9 @@ function BlogCreateCard({ onClose }) {
         if (totalCharacters <= maxCharacters) {
             setDescription(newEditorState); // Update description state only if within limit
         } else {
-            alert(`Maximum character limit (${maxCharacters}) exceeded.`);
+            // alert(`Maximum character limit (${maxCharacters}) exceeded.`);
+            setSnackbarMessage(`Maximum character limit (${maxCharacters}) exceeded.`);
+            setSnackbarOpen(true);
         }
     };
 
@@ -64,7 +76,57 @@ function BlogCreateCard({ onClose }) {
 
     const dispatch = useDispatch();
 
+    const validateForm = () => {
+        let valid = true;
+        const newErrors = {
+            topic: '',
+            description: '',
+            blogContent: '',
+            author: '',
+            category: ''
+        };
+
+        if (topic.trim() === '') {
+            newErrors.topic = 'Topic is required';
+            valid = false;
+        }
+
+        const descriptionPlainText = description.getCurrentContent().getPlainText('');
+        if (descriptionPlainText.trim() === '') {
+            newErrors.description = 'Description is required';
+            valid = false;
+        }
+
+        const blogContentPlainText = blogContent.getCurrentContent().getPlainText('');
+        if (blogContentPlainText.trim() === '') {
+            newErrors.blogContent = 'Blog content is required';
+            valid = false;
+        }
+
+        if (author.trim() === '') {
+            newErrors.author = 'Author is required';
+            valid = false;
+        }
+
+        if (category === '') {
+            newErrors.category = 'Please select a category';
+            valid = false;
+        }
+
+        if (!valid) {
+            setErrors(newErrors);
+            setSnackbarMessage('Please fill in all required fields.');
+            setSnackbarOpen(true);
+        }
+
+        return valid;
+    };
+
+
     const handleSubmit = async () => {
+        if (!validateForm()) {
+            return;
+        }
         try {
             const descriptionPlainText = description.getCurrentContent().getPlainText('');
             const blogContentPlainText = blogContent.getCurrentContent().getPlainText('');
@@ -143,6 +205,10 @@ function BlogCreateCard({ onClose }) {
     };
 
     const charactersLeft = maxCharacters - description.getCurrentContent().getPlainText('').length;
+
+    const handleSnackbarClose = () => {
+        setSnackbarOpen(false);
+    };
 
     return (
         <Container>
@@ -290,6 +356,14 @@ function BlogCreateCard({ onClose }) {
                 </Grid>
 
             </Grid>
+
+            <Snackbar
+                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                open={snackbarOpen}
+                autoHideDuration={6000}
+                onClose={handleSnackbarClose}
+                message={snackbarMessage}
+            />
         </Container>
     );
 }

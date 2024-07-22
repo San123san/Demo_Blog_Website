@@ -145,7 +145,7 @@ function BlogYourCard({updateShareBlog}) {
           localStorage.setItem('isLoggedIn', 'false'); // Update local storage
           navigate('/'); 
           localStorage.setItem('selectedButton', 'all');
-          alert("Your session has expired. Please log in again."); // Show alert to user
+          alert("Your session has expired. Please log in again. If not able to do that delete your cookies"); // Show alert to user
           dispatch(resetState())
           window.location.reload();
           
