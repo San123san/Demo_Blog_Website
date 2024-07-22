@@ -5,7 +5,7 @@ import { TextField, Button, Typography, Link, Box, Grid, Modal, Backdrop, Fade }
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
 
-function SignUpUser({onClose, onCloseSignUpopenSignIn}) {
+function SignUpUser({ onClose, onCloseSignUpopenSignIn }) {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -47,7 +47,8 @@ function SignUpUser({onClose, onCloseSignUpopenSignIn}) {
           username,
           email,
           password
-        })
+        },
+          { withCredentials: true })
         console.log(response.data);
         console.log(response.message)
         setSignupSuccess(true);
@@ -102,9 +103,9 @@ function SignUpUser({onClose, onCloseSignUpopenSignIn}) {
     // Example: Clear form fields or navigate away
     console.log('Form cancelled');
     onClose();
-    
 
-};
+
+  };
 
   return (
     <Grid container justifyContent="center" alignItems="center" style={{ minHeight: '100vh' }}>
@@ -159,7 +160,7 @@ function SignUpUser({onClose, onCloseSignUpopenSignIn}) {
             </Grid>
           </Grid>
 
-          <Box sx={{ mt: 4 , display:'flex', justifyContent: 'center'}}>
+          <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
             <Button
               type="submit"
               variant="contained"
@@ -178,8 +179,8 @@ function SignUpUser({onClose, onCloseSignUpopenSignIn}) {
           </Box>
         </form>
 
-         {/* Success Modal */}
-         <Modal
+        {/* Success Modal */}
+        <Modal
           open={signupSuccess}
           onClose={handleModalClose}
           aria-labelledby="signup-success-modal"

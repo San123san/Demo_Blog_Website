@@ -67,7 +67,10 @@ function BlogYourCard({updateShareBlog}) {
       const response = await axios.post(`https://demo-blog-website-dwt4.onrender.com/api/v1/share/shareCardToOther/${currentBlogId}`, {
         usernameOremail: shareInput,
         option: shareOption
-      });
+      },
+      {
+        withCredentials: true, // Send cookies with the request
+    });
 
       const { _id } = response.data.data;
       console.log(_id)
@@ -114,7 +117,13 @@ function BlogYourCard({updateShareBlog}) {
 
   const handleDelete = async (blogId) => {
     // Dispatch action to delete blog
-    const response = await axios.post(`https://demo-blog-website-dwt4.onrender.com/api/v1/upload/cardDelete/${blogId}`);
+    const response = await axios.post(`https://demo-blog-website-dwt4.onrender.com/api/v1/upload/cardDelete/${blogId}`,
+      
+      null,  // no data payload for POST request
+      {
+        withCredentials: true  // Send cookies with the request
+      }
+    );
     // console.log(response)
     dispatch(deleteBlog({ _id: blogId }));
   };

@@ -50,6 +50,8 @@ function ShareBlogByOther() {
                 'Content-Type': 'multipart/form-data'
             },
             // Add other necessary parameters
+            
+            withCredentials: true  // Send cookies with the request
         });
         console.log('Blog updated successfully:', response.data.data);
 
@@ -68,7 +70,11 @@ function ShareBlogByOther() {
   useEffect(() => {
     const fetchAllBlogs = async () => {
       try {
-        const response = await axios.post('https://demo-blog-website-dwt4.onrender.com/api/v1/share/shareRecipient');
+        const response = await axios.post('https://demo-blog-website-dwt4.onrender.com/api/v1/share/shareRecipient',
+          null,  // no data payload for POST request
+          {
+            withCredentials: true  // Send cookies with the request
+          });
         const sortedShareInformation = response.data.data.sort((a, b) => {
           const dateA = new Date(a.shareTime);
           const dateB = new Date(b.shareTime);

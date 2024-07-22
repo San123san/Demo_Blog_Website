@@ -161,7 +161,12 @@ function Navbar() {
   // };
   const handleSignOut = async () => {
     try {
-      const response = await axios.post('https://demo-blog-website-dwt4.onrender.com/api/v1/users/logout');
+      const response = await axios.post('https://demo-blog-website-dwt4.onrender.com/api/v1/users/logout',
+      
+        null,  // no data payload for POST request
+        {
+          withCredentials: true  // Send cookies with the request
+        });
       console.log(response.data);
       localStorage.setItem('isLoggedIn', 'false');
       setIsLoggedIn(false);

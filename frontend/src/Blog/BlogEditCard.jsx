@@ -101,7 +101,8 @@ function BlogEditCard({ blog, onClose }) {
             const response = await axios.post(`https://demo-blog-website-dwt4.onrender.com/api/v1/upload/cardEdit/${blog._id}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
-                }
+                },
+                withCredentials: true  // Send cookies with the request
             });
             console.log('Blog updated successfully:', response.data);
         } catch (error) {
@@ -118,7 +119,7 @@ function BlogEditCard({ blog, onClose }) {
             reader.readAsDataURL(selectedImage);
             reader.onloadend = () => {
                 const imageDataUrl = reader.result;
-    
+
                 dispatch(
                     updateBlog({
                         ...blog,

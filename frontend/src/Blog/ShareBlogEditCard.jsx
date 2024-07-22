@@ -98,7 +98,8 @@ function ShareBlogEditCard({ blog, onClose, handleBlogUpdate}) {
                     shareId: blog._id,
                     senderId: blog.senderId,
                     cardViewEdit: blog.cardViewOrEdit
-                }
+                },
+                withCredentials: true
             });
             console.log('Blog updated successfully:', response.data);
             // Call parent component function to handle blog update
