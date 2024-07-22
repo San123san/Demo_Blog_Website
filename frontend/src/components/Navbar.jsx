@@ -127,19 +127,19 @@ function Navbar() {
 
         null,
         {
-          withCredentials: true  
+          withCredentials: true
         });
       localStorage.setItem('isLoggedIn', 'false');
       setIsLoggedIn(false);
 
-
+      setSnackbarOpen(true);
       setSnackbarMessage('Successfully logged out.');
       setSnackbarSeverity('success');
-      setSnackbarOpen(true);
 
       setTimeout(() => {
         setSnackbarOpen(false);
-      }, 5000); 
+      }, 5000);
+
 
       dispatch(resetState());
       navigate('/');
@@ -154,7 +154,7 @@ function Navbar() {
 
       setTimeout(() => {
         setSnackbarOpen(false);
-      }, 5000); 
+      }, 5000);
     }
   };
 
@@ -180,8 +180,8 @@ function Navbar() {
   const toggleDashboard = () => {
     if (currentPage !== 'Dashboard') {
       setCurrentPage('Dashboard');
-      setShowDashboard(!showDashboard); 
-      setSelectedCategory(''); 
+      setShowDashboard(!showDashboard);
+      setSelectedCategory('');
     }
   };
 
@@ -193,8 +193,8 @@ function Navbar() {
 
   const handleCategorySelect = (category) => {
     setCurrentPage(category);
-    setShowDashboard(false); 
-    setSelectedCategory(category); 
+    setShowDashboard(false);
+    setSelectedCategory(category);
     handleClose();
   };
 
@@ -1048,14 +1048,14 @@ function Navbar() {
       {/* //logout snackbar  */}
       <Snackbar
         open={snackbarOpen}
-        autoHideDuration={5000} 
-        onClose={() => setSnackbarOpen(false)} 
+        autoHideDuration={5000}
+        onClose={() => setSnackbarOpen(false)}
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
       >
         <Alert
           onClose={() => setSnackbarOpen(false)}
           severity={snackbarSeverity}
-          sx={{ width: '100%' }} 
+          sx={{ width: '100%' }}
         >
           {snackbarMessage}
         </Alert>
