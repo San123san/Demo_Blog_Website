@@ -5,7 +5,7 @@ import { TextField, Button, Typography, Link, Box, Grid, Dialog, DialogTitle, Di
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-function SignUpUser({onSuccess, onClose, onCloseSignInopenSignUp}) {
+function SignInUser({onSuccess, onClose, onCloseSignInopenSignUp}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [openSuccessDialog, setOpenSuccessDialog] = useState(false);
@@ -129,4 +129,4 @@ const handleCloseSuccessDialog = () => {
   );
 }
 
-export default SignUpUser
+export default SignInUser
