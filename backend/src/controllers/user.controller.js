@@ -99,6 +99,9 @@ const loginUser = asyncHandler(async (req, res) => {
     const { accessToken, refreshToken } = await generateAccessAndRefereshTokens(user._id)
 
     const loggedInUser = await registration.findById(user._id).select("-password -refreshToken")
+    console.log('loggedinuserr',loggedInUser)
+    console.log('access',accessToken)
+    console.log('referesh',refreshToken)
 
     const options = {
         httpOnly: true,
