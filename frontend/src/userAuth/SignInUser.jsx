@@ -20,6 +20,13 @@ function SignInUser({onSuccess, onClose, onCloseSignInopenSignUp}) {
       const response = await axios.post('https://demo-blog-website-dwt4.onrender.com/api/v1/users/login', { email, password });
   
       if (response.status === 200) {
+        // Assuming your backend responds with tokens in the response data
+      const { accessToken, refreshToken } = response.data.data;
+
+      // Store tokens in localStorage or session storage for persistence
+      localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('refreshToken', refreshToken);
+      
         console.log(response)
         setOpenSuccessDialog(true);
         localStorage.setItem('isLoggedIn', 'true'); // Update local storage
