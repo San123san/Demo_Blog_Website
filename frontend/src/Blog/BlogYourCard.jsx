@@ -121,10 +121,16 @@ function BlogYourCard({updateShareBlog}) {
 
   const blogs = useSelector(state => state.blog.blogs);
 
+  const axiosInstance = axios.create({
+    baseURL: 'https://demo-blog-website-dwt4.onrender.com/api/v1', // Adjust the base URL as per your backend API
+    withCredentials: true  // Ensures cookies (including accessToken) are sent
+  });
+
   useEffect(() => {
     const fetchAllBlogs = async () => {
       try {
-        const response = await axios.post('https://demo-blog-website-dwt4.onrender.com/api/v1/upload/yourCard');
+        const response = await axiosInstance.post('/upload/yourCard');
+        // const response = await axios.post('https://demo-blog-website-dwt4.onrender.com/api/v1/upload/yourCard');
         const sortedImages = response.data.data.sort((a, b) => {
           // Convert uploadTime to Date objects
           const dateA = new Date(a.uploadTime);
@@ -133,6 +139,7 @@ function BlogYourCard({updateShareBlog}) {
           return dateB - dateA; // Latest dates first
         });
         setRetBlogs(sortedImages);
+        console.log("blogyourcard for token", response.data)
         // dispatch(resetState())
         // console.log(response.data)
       } catch (error) {

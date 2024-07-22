@@ -12,18 +12,21 @@ function SignInUser({onSuccess, onClose, onCloseSignInopenSignUp}) {
 
   const navigate = useNavigate();
 
+  const axiosInstance = axios.create({
+    baseURL: 'https://demo-blog-website-dwt4.onrender.com/api/v1', // Adjust the base URL as per your backend API
+    withCredentials: true  // Ensures cookies (including accessToken) are sent
+  });
 
   const handleSubmit = async (event) => {
     event.preventDefault(); // Prevent default form submission
     
     try {
-      const response = await axios.post('https://demo-blog-website-dwt4.onrender.com/api/v1/users/login', { email, password });
+      const response = await axiosInstance.post('/users/login', { email, password });
+      // const response = await axios.post('https://demo-blog-website-dwt4.onrender.com/api/v1/users/login', { email, password });
   
       if (response.status === 200) {
         // Assuming your backend responds with tokens in the response data
       const { accessToken, refreshToken } = response.data.data;
-      console.log("access frontend",accessToken)
-      console.log("refresh frontend",refreshToken)
 
       // Store tokens in localStorage or session storage for persistence
       localStorage.setItem('accessToken', accessToken);
