@@ -141,11 +141,14 @@ function Navbar() {
       }, 5000);
 
 
-      dispatch(resetState());
+      // dispatch(resetState());
       navigate('/');
 
       localStorage.setItem('selectedButton', 'all');
-      // window.location.reload();
+      setTimeout(() => {
+        setSnackbarOpen(false);
+        window.location.reload();
+      }, 5000);
 
     } catch (error) {
       setSnackbarMessage('Error logging out.');
