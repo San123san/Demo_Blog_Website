@@ -124,15 +124,7 @@ function BlogYourCard({updateShareBlog}) {
   useEffect(() => {
     const fetchAllBlogs = async () => {
       try {
-        const accessToken = localStorage.getItem('accessToken'); // Retrieve access token from local storage or wherever it's stored
-        const refreshToken = localStorage.getItem('refreshToken'); // Retrieve refresh token similarly
-    
-        const headers = {
-          'Authorization': `Bearer ${accessToken}`,
-          'Set-Cookie': `refreshToken=${refreshToken}; Secure; HttpOnly; SameSite=None` // Example for setting refresh token cookie
-        };
-
-        const response = await axios.post('https://demo-blog-website-dwt4.onrender.com/api/v1/upload/yourCard', {}, { headers });
+        const response = await axios.post('https://demo-blog-website-dwt4.onrender.com/api/v1/upload/yourCard');
         const sortedImages = response.data.data.sort((a, b) => {
           // Convert uploadTime to Date objects
           const dateA = new Date(a.uploadTime);

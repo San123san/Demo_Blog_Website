@@ -22,6 +22,8 @@ function SignInUser({onSuccess, onClose, onCloseSignInopenSignUp}) {
       if (response.status === 200) {
         // Assuming your backend responds with tokens in the response data
       const { accessToken, refreshToken } = response.data.data;
+      console.log("access frontend",accessToken)
+      console.log("refresh frontend",refreshToken)
 
       // Store tokens in localStorage or session storage for persistence
       localStorage.setItem('accessToken', accessToken);

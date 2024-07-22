@@ -108,33 +108,33 @@ const loginUser = asyncHandler(async (req, res) => {
         secure: true
     }
 
-    // return res
-    //     .status(200)
-    //     .cookie("accessToken", accessToken, options)
-    //     .cookie("refreshToken", refreshToken, options)
-    //     .json(
-    //         new ApiResponse(
-    //             200,
-    //             {
-    //                 user: loggedInUser, accessToken, refreshToken
-    //             },
-    //             "User logged In Successfully"
-    //         )
-    //     )
-    // Set cookies in the response
-    res.cookie("accessToken", accessToken, options);
-    res.cookie("refreshToken", refreshToken, options);
+    return res
+        .status(200)
+        .cookie("accessToken", accessToken, options)
+        .cookie("refreshToken", refreshToken, options)
+        .json(
+            new ApiResponse(
+                200,
+                {
+                    user: loggedInUser, accessToken, refreshToken
+                },
+                "User logged In Successfully"
+            )
+        )
 
-    // Return JSON response with user details and tokens
-    return res.status(200).json({
-        success: true,
-        data: {
-            user: loggedInUser,
-            accessToken,
-            refreshToken,
-        },
-        message: "User logged in successfully",
-    });
+        // res.cookie("accessToken", accessToken, options);
+        // res.cookie("refreshToken", refreshToken, options);
+    
+        // // Return JSON response with user details and tokens
+        // return res.status(200).json({
+        //     success: true,
+        //     data: {
+        //         user: loggedInUser,
+        //         accessToken,
+        //         refreshToken,
+        //     },
+        //     message: "User logged in successfully",
+        // });
 })
 
 
