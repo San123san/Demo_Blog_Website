@@ -17,7 +17,7 @@ function SignInUser({onSuccess, onClose, onCloseSignInopenSignUp}) {
     event.preventDefault(); // Prevent default form submission
     
     try {
-      const response = await axios.post('https://demo-blog-website-dwt4.onrender.com/api/v1/users/login', { email, password });
+      const response = await axios.post('https://demo-blog-website-dwt4.onrender.com/api/v1/users/login', { email, password }, { withCredentials: true });
   
       if (response.status === 200) {
         // Assuming your backend responds with tokens in the response data
