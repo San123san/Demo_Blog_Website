@@ -36,7 +36,16 @@ function Travel() {
   return (
     <>
       <Box sx={{
-        mt: 5
+        mt: 5,
+        '@media (min-width: 1300px)': {
+          marginLeft: 15,
+          marginRight: 15,
+        },
+
+        '@media (max-width: 1300px)': {
+          marginLeft: 5,
+          marginRight: 5,
+        },
       }}>
       <Grid container spacing={2}>
         {filteredBlogs.length === 0 ? (

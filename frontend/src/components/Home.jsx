@@ -53,14 +53,23 @@ function Home({ isLoggedIn }) {
       <Container maxWidth="md" sx={{ paddingTop: '100px' }}>
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <Typography variant="h4" gutterBottom>
+            <Typography variant="h4" gutterBottom sx={{
+              display: 'flex',
+              justifyContent: 'center'
+            }}>
               Blog
             </Typography>
-            <Typography variant="body1" paragraph>
+            <Typography variant="body1" paragraph sx={{
+              display: 'flex',
+              textAlign: 'center'
+            }}>
               A blog is a type of website or a section of a website where individuals or groups of people (bloggers) regularly post content in the form of articles, opinions, reflections, or informational pieces. These entries, called blog posts, are typically displayed in reverse chronological order, with the newest post appearing first.
             </Typography>
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} sx={{
+            display: 'flex',
+            justifyContent: 'center'
+          }}>
             <Button
               variant="contained"
               color="primary"
@@ -73,7 +82,18 @@ function Home({ isLoggedIn }) {
         </Grid>
       </Container>
 
-      <Box sx={{ display: 'flex', marginTop: '50px', backgroundColor: '#f0f0f0', padding: '10px', borderRadius: '10px' }}>
+      <Box sx={{
+        display: 'flex', marginTop: '50px', backgroundColor: '#f0f0f0', padding: '10px', borderRadius: '10px',
+        '@media (min-width: 1300px)': {
+          marginLeft: 15,
+          marginRight: 15,
+        },
+
+        '@media (max-width: 1300px)': {
+          marginLeft: 5,
+          marginRight: 5,
+        },
+      }}>
         <Button
           variant="contained"
           color={selectedButton === 'all' ? 'secondary' : 'primary'}
@@ -97,10 +117,24 @@ function Home({ isLoggedIn }) {
 
       </Box>
 
-      {/* Conditional rendering based on selectedButton */}
-      {selectedButton === 'all' && <BlogAllCard />}
+      <Box sx={{
+        '@media (min-width: 1300px)': {
+          marginLeft: 15,
+          marginRight: 15,
+        },
 
-      {isLoggedIn && selectedButton === 'yours' && <BlogYourCard />}
+        '@media (max-width: 1300px)': {
+          marginLeft: 5,
+          marginRight: 5,
+        },
+      }}>
+        {/* Conditional rendering based on selectedButton */}
+        {selectedButton === 'all' && <BlogAllCard />}
+
+        {isLoggedIn && selectedButton === 'yours' && <BlogYourCard />}
+      </Box>
+
+
 
       {/* Modal for BlogCreateCard */}
       <Modal
@@ -122,7 +156,7 @@ function Home({ isLoggedIn }) {
             <Typography id="create-blog-modal-description" variant="body1" gutterBottom>
               Fill out the details to create your blog.
             </Typography>
-            <BlogCreateCard onClose={handleCreateCardClose}/>
+            <BlogCreateCard onClose={handleCreateCardClose} />
           </Paper>
         </Box>
       </Modal>

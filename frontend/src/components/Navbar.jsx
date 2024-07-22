@@ -438,8 +438,8 @@ function Navbar() {
                 paddingTop: '10px',
                 paddingLeft: '5px',
                 placeContent: 'center',
-                '@media (max-width: 1017px)': {
-
+                '@media (max-width: 521px)': {
+                  display: 'none'
                 },
               }}>
                 <Box style={{ left: 10, alignItems: 'center', placeItems: 'center', placeContent: 'center' }}>
@@ -665,7 +665,7 @@ function Navbar() {
                 paddingTop: '10px',
                 paddingLeft: '5px',
                 placeContent: 'center',
-                '@media (max-width: 520px)': {
+                '@media (max-width: 521px)': {
                   display: 'none'
                 },
               }}
@@ -777,7 +777,7 @@ function Navbar() {
       <Button
         onClick={toggleDrawer(true)}
         sx={{
-          marginTop: 5,
+          marginTop: 10,
           marginLeft: 0,
           display: 'flex',
           '@media (min-width: 1017px)': {
