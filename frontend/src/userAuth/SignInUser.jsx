@@ -24,6 +24,7 @@ function SignInUser({onSuccess, onClose, onCloseSignInopenSignUp}) {
       const { accessToken, refreshToken } = response.data.data;
       console.log("access frontend",accessToken)
       console.log("refresh frontend",refreshToken)
+      console.log("token both", response.data)
 
       // Store tokens in localStorage or session storage for persistence
       localStorage.setItem('accessToken', accessToken);
