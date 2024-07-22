@@ -145,7 +145,7 @@ function Navbar() {
       navigate('/');
 
       localStorage.setItem('selectedButton', 'all');
-      window.location.reload();
+      // window.location.reload();
 
     } catch (error) {
       setSnackbarMessage('Error logging out.');
