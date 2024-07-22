@@ -58,6 +58,7 @@ function BlogYourCard({updateShareBlog}) {
   };
 
   //share to the recipient
+  axios.defaults.withCredentials = true;
   const handleShareSubmit = async (event) => {
     event.preventDefault();
 
