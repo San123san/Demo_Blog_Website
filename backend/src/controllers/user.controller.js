@@ -122,8 +122,8 @@ const loginUser = asyncHandler(async (req, res) => {
     //         )
     //     )
     // Set cookies in the response
-    res.cookie("accessToken", accessToken, cookieOptions);
-    res.cookie("refreshToken", refreshToken, cookieOptions);
+    res.cookie("accessToken", accessToken, options);
+    res.cookie("refreshToken", refreshToken, options);
 
     // Return JSON response with user details and tokens
     return res.status(200).json({
