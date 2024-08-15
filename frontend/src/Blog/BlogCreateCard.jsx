@@ -191,7 +191,13 @@ function BlogCreateCard({ onClose }) {
 
             onClose();
         } catch (error) {
-            console.error('Error submitting blog:', error);
+            // console.error('Error submitting blog:', error);
+            if ((error.response && error.response.status === 401)) {
+                setSnackbarMessage('User not authenticated. Please sign in or sign up. If not able to sign in, please delete cookie')
+                setSnackbarOpen(true);
+            } else {
+                console.error('Error submitting blog:', error);
+            }
         }
     };
 
@@ -210,8 +216,38 @@ function BlogCreateCard({ onClose }) {
         setSnackbarOpen(false);
     };
 
+    const handleCloseSnackbar = () => {
+        setSnackbarOpen(false);
+    };
+
     return (
         <Container>
+
+            <Snackbar
+                open={snackbarOpen}
+                autoHideDuration={6000}
+                onClose={handleCloseSnackbar}
+                anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'center',
+                }}
+            >
+                <SnackbarContent
+                    style={{
+                        backgroundColor: 'red', // Change background color here
+                    }}
+                    message={
+                        <Typography variant="body1">
+                            {snackbarMessage}
+                        </Typography>
+                    }
+                    action={
+                        <Button color="inherit" size="small" onClick={handleCloseSnackbar}>
+                            CLOSE
+                        </Button>
+                    }
+                />
+            </Snackbar>
 
             {/* Image Preview */}
             <Box md={6} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
@@ -277,7 +313,8 @@ function BlogCreateCard({ onClose }) {
                         placeholder="Enter Author Name"
                         value={author}
                         onChange={(e) => setAuthor(e.target.value)}
-                        sx={{ marginBottom: '20px', width: '100%' ,
+                        sx={{
+                            marginBottom: '20px', width: '100%',
                             '@media (max-width: 570px)': {
                                 width: '270px',
                                 marginLeft: 3
@@ -288,11 +325,13 @@ function BlogCreateCard({ onClose }) {
 
                 {/* Select Category */}
                 <Grid item xs={12} style={{ display: 'flex', justifyContent: 'center' }}>
-                    <Box sx={{ width: 400,  
-                    '@media (max-width: 570px)': {
+                    <Box sx={{
+                        width: 400,
+                        '@media (max-width: 570px)': {
                             width: '270px',
                             marginLeft: 3
-                        }, }}>
+                        },
+                    }}>
                         <FormControl fullWidth>
                             <InputLabel id="demo-simple-select-label">Select Category</InputLabel>
                             <Select
@@ -312,13 +351,13 @@ function BlogCreateCard({ onClose }) {
                 </Grid>
 
                 {/* Description Editor */}
-                <Grid item xs={12} 
-                sx={{
-                    '@media (max-width: 570px)': {
+                <Grid item xs={12}
+                    sx={{
+                        '@media (max-width: 570px)': {
                             width: '270px',
                             marginLeft: 3
                         },
-                }}>
+                    }}>
                     <Typography variant="body2" style={{ marginTop: '8px' }}>
                         Characters Left: {charactersLeft}
                     </Typography>
@@ -337,12 +376,12 @@ function BlogCreateCard({ onClose }) {
 
                 {/* Blog Editor */}
                 <Grid item xs={12}
-                sx={{
-                    '@media (max-width: 570px)': {
-                        width: '270px',
-                        marginLeft: 3
-                    },
-                }}>
+                    sx={{
+                        '@media (max-width: 570px)': {
+                            width: '270px',
+                            marginLeft: 3
+                        },
+                    }}>
                     <Editor
                         editorState={blogContent}
                         onEditorStateChange={handleBlogChange}
@@ -388,13 +427,13 @@ function BlogCreateCard({ onClose }) {
 
             </Grid>
 
-            <Snackbar
+            {/* <Snackbar
                 anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
                 open={snackbarOpen}
                 autoHideDuration={6000}
                 onClose={handleSnackbarClose}
                 message={snackbarMessage}
-            />
+            /> */}
         </Container>
     );
 }
