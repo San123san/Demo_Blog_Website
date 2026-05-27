@@ -1,6 +1,10 @@
 
 ## Demo_Blog_Application
 ## Website Link: https://demo-blog-website-1.onrender.com
+
+> **Note:** Because this application is hosted on Render's free tier, the server may spin down after periods of inactivity. The website may take up to 5 minutes to load initially. Thank you for your patience!
+
+
 ### Description
 The Demo Blog Application allows users to create, delete, edit, and share blogs across various categories including Technology, Lifestyle, Food, and Travel. Users can share blogs by entering
 an email address or username, with options to grant edit or view permissions. The website is designed to be responsive, ensuring a seamless experience across various devices.
